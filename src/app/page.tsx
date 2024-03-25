@@ -1,30 +1,7 @@
 import {PRODUCTS} from "@/data";
 import {Product} from "@/types";
-
-function ProductCard(props: { product: Product }) {
-  const { slides = [] } = props.product
-
-  return (
-    <div className="flex flex-row">
-      <div className="px-12 py-7 w-1/4 bg-gradient-to-r h-full from-black sticky top-0">
-        <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
-        <h2 className="text-5xl text-white">{props.product.name.toLowerCase()}</h2>
-        <p className="text-lg pt-3 pb-3 text-white">{props.product.description}</p>
-      </div>
-      <div className="min-h-lvh w-3/4">
-        {slides.length > 0 && slides.map(slide => (
-          <div className="h-lvh w-full">
-            <img
-              alt={`${props.product.name}`}
-              className={`pl-7 object-${slide.imageSize || 'cover'} object-${slide.imageAnchor || 'center' } h-full w-full`}
-              src={slide.image}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import React from "react";
+import {PortfolioSection} from "@/components/portfolioSection";
 
 function HeroSection() {
   return <section
@@ -39,6 +16,18 @@ function HeroSection() {
   </section>;
 }
 
+function Portfolio() {
+  return (
+    <section className="min-h-screen flex flex-col">
+      <div>
+        {PRODUCTS.map(product => (
+          <PortfolioSection key={product.slug} product={product}/>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return <section className="h-screen flex flex-col p-12 justify-center items-center">
     <a href="mailto:hello@marcusbernal.es">
@@ -47,23 +36,11 @@ function Contact() {
   </section>;
 }
 
-function Portfolio(props: { renderProduct: (product: Product) => JSX.Element }) {
-  return (
-    <section className="min-h-screen flex flex-col">
-      <div>
-        {PRODUCTS.map(props.renderProduct)}
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   return (
     <main className="flex flex-col w-screen bg-gray-950">
       <HeroSection/>
-      <Portfolio renderProduct={product => (
-        <ProductCard key={product.slug} product={product}/>
-      )}/>
+      <Portfolio />
       <Contact/>
     </main>
   );

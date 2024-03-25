@@ -4,7 +4,7 @@ export type Technology = string;
 
 type Platform = string;
 
-type Slide = {
+export type Slide = {
   image: string
   imageAnchor?: string
   imageSize?: string

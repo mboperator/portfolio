@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     technologies: ['react', 'ruby-on-rails', 'mobx'],
     slides: [
       { image: 'prequal-1.png', imageSize: 'contain' },
-      { image: 'prequal-2.png', imageSize: 'contain'},
+      { image: 'prequal-2.png', imageSize: 'contain', description: 'Prequalification features a novel way to configure a large custom form on the General Contractor side.'},
       { image: "prequal-3.png", imageSize: 'contain'}
     ],
   },
