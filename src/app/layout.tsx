@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Istok_Web } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const istok = Istok_Web({
+  weight: ["400", "700"],
+  subsets: ["latin"]
+});
 
 export const metadata: Metadata = {
   title: "Marcus Bernales",
@@ -16,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={istok.className}>{children}</body>
     </html>
   );
 }
