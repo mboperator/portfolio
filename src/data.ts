@@ -7,15 +7,17 @@ export const PRODUCTS: Product[] = [
     name: 'Ila Lantern',
     description: 'The light built for moments of connection.',
     platform: ['mobile'],
-    technologies: ['react-native', 'ble', 'mobx']
+    technologies: ['react-native', 'ble', 'mobx'],
+    images: ['ila-lantern.png'],
   },
   {
     slug: 'redeemers-church-ventura',
     organization: "Redeemer's Church Ventura",
-    name: "Redeemer's Church Ventura",
+    name: "Redeemer's Community",
     description: "The community app for my local church family.",
     platform: ['mobile', 'web'],
-    technologies: ['react-native', 'ruby-on-rails', 'mobx']
+    technologies: ['react-native', 'ruby-on-rails', 'mobx'],
+    images: ['redeemers-ventura.jpeg']
   },
   {
     slug: 'odyssey-journal',
@@ -23,7 +25,8 @@ export const PRODUCTS: Product[] = [
     name: 'Odyssey Journal',
     description: "The private, encrypted journal for one's walk with God.",
     platform: ['mobile', 'web'],
-    technologies: ['react-native', 'mobx']
+    technologies: ['react-native', 'mobx'],
+    images: ['odyssey-journal.png']
   },
   {
     slug: 'prequalification',
@@ -31,7 +34,9 @@ export const PRODUCTS: Product[] = [
     name: 'Prequalification',
     description: "A single platform for assessing a company’s risk, putting together a plan, and inviting them onto construction projects.",
     platform: ['web'],
-    technologies: ['react', 'ruby-on-rails', 'mobx']
+    technologies: ['react', 'ruby-on-rails', 'mobx'],
+    images: ['prequal-1.png', 'prequal-2.png', "prequal-3.png"],
+    imageSize: 'contain',
   },
   {
     slug: 'bid-management',
@@ -47,7 +52,9 @@ export const PRODUCTS: Product[] = [
     name: 'Project Financials',
     description: 'A solution that makes it easier to collaboratively manage accurate budgets in one, accurate source of truth.',
     platform: ['web'],
-    technologies: ['react', 'ruby-on-rails', 'redux']
+    technologies: ['react', 'ruby-on-rails', 'redux'],
+    images: ['project-financials.png'],
+    imageAnchor: 'left',
   },
   {
     slug: 'core',
@@ -55,6 +62,7 @@ export const PRODUCTS: Product[] = [
     name: 'CORE Component Library',
     description: 'A React implementation of Procore\'s design guidelines.',
     platform: ['web'],
-    technologies: ['react', 'sass']
+    technologies: ['react', 'sass'],
+    images: ['core-react.png']
   },
 ]
