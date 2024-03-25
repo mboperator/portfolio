@@ -10,6 +10,9 @@ const config: Config = {
     extend: {
       height: {
         '2/3vh': '66vh',
+      },
+      backgroundImage: {
+        'sunset': "url('/bg-1.png')"
       }
     }
   },

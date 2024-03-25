@@ -12,9 +12,9 @@ function ProductCard(props: { product: Product }) {
 export default function Home() {
   return (
     <main className="">
-      <section className="h-screen flex flex-col justify-center p-12">
-        <h1 className="text-7xl mb-7">marcus bernales</h1>
-        <h2 className="text-3xl">disciple of Jesus | husband | engineer</h2>
+      <section className="h-screen flex flex-col justify-end items-center p-12 bg-sunset bg-cover bg-center">
+        <h1 className="text-white text-7xl mb-7">marcus bernales</h1>
+        <h2 className="text-white text-3xl">disciple of Jesus | husband | engineer</h2>
       </section>
       <section className="min-h-screen flex flex-col p-12">
         <h1 className="text-7xl mb-7">portfolio</h1>
