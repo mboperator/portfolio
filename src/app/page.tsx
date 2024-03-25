@@ -1,60 +1,31 @@
-import Image from "next/image";
-import {Key} from "react";
+import {PRODUCTS} from "@/data";
+import {Product} from "@/types";
 
-type Product = {
-  slug: Key
-  name: String
-  description: String
+function ProductCard(props: { product: Product }) {
+  return <div className="py-7 h-2/3vh flex flex-col justify-end bg-amber-300 my-7 p-7 rounded-3xl">
+    <h4 className="text-gray-700 mb-3">{props.product.organization.toLowerCase()}</h4>
+    <h2 className="text-5xl">{props.product.name.toLowerCase()}</h2>
+    <p className="text-lg pt-3 pb-3">{props.product.description}</p>
+  </div>;
 }
-
-const PRODUCTS: Product[] = [
-  {
-    slug: 'ila-lantern',
-    name: 'Ila Lantern',
-    description: 'The light built for moments of connection.'
-  },
-  {
-    slug: 'odyssey-journal',
-    name: 'Odyssey Journal',
-    description: 'The private, encrypted journal for your walk with God.'
-  },
-  {
-    slug: 'prequalification',
-    name: 'Prequalification',
-    description: '',
-  },
-  {
-    slug: 'bid-management',
-    name: 'Bid Management',
-    description: '',
-  },
-  {
-    slug: 'project-financials',
-    name: 'Project Financials',
-    description: ''
-  }
-]
 
 export default function Home() {
   return (
     <main className="">
-      <section>
-        <h1>Marcus Bernales</h1>
-        <h2>Follower of Christ | Husband | Builder</h2>
+      <section className="h-screen flex flex-col justify-center p-12">
+        <h1 className="text-7xl mb-7">marcus bernales</h1>
+        <h2 className="text-3xl">disciple of Jesus | husband | engineer</h2>
       </section>
-      <section>
-        <h1>Products</h1>
+      <section className="min-h-screen flex flex-col p-12">
+        <h1 className="text-7xl mb-7">portfolio</h1>
         <div>
           {PRODUCTS.map(product => (
-            <div key={product.slug}>
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
-            </div>
+            <ProductCard key={product.slug} product={product}/>
           ))}
         </div>
       </section>
-      <section>
-        <h1>Get In Touch</h1>
+      <section className="h-screen flex flex-col p-12">
+        <h1 className="text-7xl">get in touch</h1>
       </section>
     </main>
   );
