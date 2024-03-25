@@ -2,11 +2,7 @@ import {PRODUCTS} from "@/data";
 import {Product} from "@/types";
 
 function ProductCard(props: { product: Product }) {
-  const {
-    images = [],
-    imageSize = 'cover',
-    imageAnchor = 'center'
-  } = props.product
+  const { slides = [] } = props.product
 
   return (
     <div className="flex flex-row">
@@ -16,12 +12,12 @@ function ProductCard(props: { product: Product }) {
         <p className="text-lg pt-3 pb-3 text-white">{props.product.description}</p>
       </div>
       <div className="min-h-lvh w-3/4">
-        {images.length > 0 && images.map(image => (
+        {slides.length > 0 && slides.map(slide => (
           <div className="h-lvh w-full">
             <img
               alt={`${props.product.name}`}
-              className={`pl-7 object-${imageSize} object-${imageAnchor} h-full w-full`}
-              src={image}
+              className={`pl-7 object-${slide.imageSize || 'cover'} object-${slide.imageAnchor || 'center' } h-full w-full`}
+              src={slide.image}
             />
           </div>
         ))}

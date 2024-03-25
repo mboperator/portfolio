@@ -1,7 +1,16 @@
 import {Key} from "react";
 
 export type Technology = string;
+
 type Platform = string;
+
+type Slide = {
+  image: string
+  imageAnchor?: string
+  imageSize?: string
+  description?: string
+}
+
 export type Product = {
   slug: Key
   organization: string
@@ -9,8 +18,5 @@ export type Product = {
   description: string
   platform: Platform[]
   technologies: Technology[]
-  image?: string
-  images?: string[]
-  imageAnchor?: string
-  imageSize?: string
+  slides: Slide[]
 }

@@ -8,7 +8,11 @@ export const PRODUCTS: Product[] = [
     description: 'The light built for moments of connection.',
     platform: ['mobile'],
     technologies: ['react-native', 'ble', 'mobx'],
-    images: ['ila-lantern.png'],
+    slides: [
+      {
+        image: 'ila-lantern.png'
+      }
+    ]
   },
   {
     slug: 'redeemers-church-ventura',
@@ -17,7 +21,11 @@ export const PRODUCTS: Product[] = [
     description: "The community app for my local church family.",
     platform: ['mobile', 'web'],
     technologies: ['react-native', 'ruby-on-rails', 'mobx'],
-    images: ['redeemers-ventura.jpeg']
+    slides: [
+      {
+        image: 'redeemers-ventura.jpeg'
+      }
+    ]
   },
   {
     slug: 'odyssey-journal',
@@ -26,7 +34,11 @@ export const PRODUCTS: Product[] = [
     description: "The private, encrypted journal for one's walk with God.",
     platform: ['mobile', 'web'],
     technologies: ['react-native', 'mobx'],
-    images: ['odyssey-journal.png']
+    slides: [
+      {
+        image: 'odyssey-journal.png'
+      }
+    ]
   },
   {
     slug: 'prequalification',
@@ -35,8 +47,11 @@ export const PRODUCTS: Product[] = [
     description: "A single platform for assessing a company’s risk, putting together a plan, and inviting them onto construction projects.",
     platform: ['web'],
     technologies: ['react', 'ruby-on-rails', 'mobx'],
-    images: ['prequal-1.png', 'prequal-2.png', "prequal-3.png"],
-    imageSize: 'contain',
+    slides: [
+      { image: 'prequal-1.png', imageSize: 'contain' },
+      { image: 'prequal-2.png', imageSize: 'contain'},
+      { image: "prequal-3.png", imageSize: 'contain'}
+    ],
   },
   {
     slug: 'bid-management',
@@ -44,7 +59,8 @@ export const PRODUCTS: Product[] = [
     name: 'Bid Management',
     description: 'A single platform for creating bid packages, expanding bid coverage, analyzing bids, and converting bids to subcontracts.',
     platform: ['web'],
-    technologies: ['react', 'ruby-on-rails', 'mobx']
+    technologies: ['react', 'ruby-on-rails', 'mobx'],
+    slides: [],
   },
   {
     slug: 'project-financials',
@@ -53,8 +69,10 @@ export const PRODUCTS: Product[] = [
     description: 'A solution that makes it easier to collaboratively manage accurate budgets in one, accurate source of truth.',
     platform: ['web'],
     technologies: ['react', 'ruby-on-rails', 'redux'],
-    images: ['project-financials.png'],
-    imageAnchor: 'left',
+    slides: [{
+      image: 'project-financials.png',
+      imageAnchor: 'left',
+    }],
   },
   {
     slug: 'core',
@@ -63,6 +81,8 @@ export const PRODUCTS: Product[] = [
     description: 'A React implementation of Procore\'s design guidelines.',
     platform: ['web'],
     technologies: ['react', 'sass'],
-    images: ['core-react.png']
+    slides: [{
+      image: 'core-react.png'
+    }]
   },
 ]
