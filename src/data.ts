@@ -53,7 +53,7 @@ export const PRODUCTS: Product[] = [
     slug: 'core',
     organization: 'Procore Technologies',
     name: 'CORE React Component Library',
-    description: 'CORE React is a React implemenation of Procore\'s design guidelines.',
+    description: 'A React implementation of Procore\'s design guidelines.',
     platform: ['web'],
     technologies: ['react', 'sass']
   },
