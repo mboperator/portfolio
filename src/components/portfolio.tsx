@@ -221,7 +221,6 @@ export function ProductShowcase(props: { product: Product }) {
               key={`${index}--${slide.description}`}
               product={props.product}
               slide={slide}
-              color={index}
               onEnterViewport={() => {}}
               onExitViewport={() => {}}
             />

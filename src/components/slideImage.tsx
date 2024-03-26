@@ -24,7 +24,7 @@ function useVisibility(ref: React.RefObject<HTMLDivElement | null>) {
 
 type VisibilityHandler = () => any
 
-export function SlideImage(props: { color: number, product: Product, slide: Slide, onEnterViewport: VisibilityHandler, onExitViewport: VisibilityHandler }) {
+export function SlideImage(props: { product: Product, slide: Slide, onEnterViewport: VisibilityHandler, onExitViewport: VisibilityHandler }) {
   const ref = React.createRef<HTMLDivElement>();
   const { isFullyVisible, isTotallyInvisible } = useVisibility(ref)
 
@@ -39,9 +39,8 @@ export function SlideImage(props: { color: number, product: Product, slide: Slid
     }
   }, [isFullyVisible, isTotallyInvisible, props.product, props.slide]);
 
-  const bgColor = props.color % 2 === 1 ? 'red' : 'cyan'
   return (
-    <div ref={ref} className={`h-lvh w-full`} style={{ backgroundColor: bgColor}}>
+    <div ref={ref} className={`h-lvh w-full`} >
     </div>
   );
 }
