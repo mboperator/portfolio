@@ -1,7 +1,5 @@
-import {PRODUCTS} from "@/data";
-import {Product} from "@/types";
 import React from "react";
-import {PortfolioSection} from "@/components/portfolioSection";
+import {Portfolio} from "@/components/portfolio";
 
 function HeroSection() {
   return <section
@@ -16,18 +14,6 @@ function HeroSection() {
   </section>;
 }
 
-function Portfolio() {
-  return (
-    <section className="min-h-screen flex flex-col">
-      <div>
-        {PRODUCTS.map(product => (
-          <PortfolioSection key={product.slug} product={product}/>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   return <section className="h-screen flex flex-col p-12 justify-center items-center">
     <a href="mailto:hello@marcusbernal.es">
@@ -39,9 +25,9 @@ function Contact() {
 export default function Home() {
   return (
     <main className="flex flex-col w-screen bg-gray-950">
-      <HeroSection/>
+      <HeroSection />
       <Portfolio />
-      <Contact/>
+      <Contact />
     </main>
   );
 }

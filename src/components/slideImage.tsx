@@ -3,40 +3,45 @@ import {Product, Slide} from "@/types";
 import React, {useEffect} from "react";
 
 function useVisibility(ref: React.RefObject<HTMLDivElement | null>) {
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isFullyVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isTotallyInvisible, setIsTotallyInvisible] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (!ref.current) return
-    const observer = new IntersectionObserver(([entry]) =>
+    const entranceObserver = new IntersectionObserver(([entry]) => {
       setIsVisible(entry.isIntersecting)
-    );
+    }, { threshold: .99 });
 
-    observer.observe(ref.current);
+    const exitObserver = new IntersectionObserver(([entry]) => {
+      setIsTotallyInvisible(entry.isIntersecting)
+    }, { threshold: .01 });
+
+    entranceObserver.observe(ref.current);
   }, [ref]);
 
-  return { isVisible }
+  return { isFullyVisible, isTotallyInvisible }
 }
 
 type VisibilityHandler = () => any
 
-export function SlideImage(props: { product: Product, slide: Slide, onVisible: VisibilityHandler }) {
+export function SlideImage(props: { color: number, product: Product, slide: Slide, onEnterViewport: VisibilityHandler, onExitViewport: VisibilityHandler }) {
   const ref = React.createRef<HTMLDivElement>();
-  const { isVisible } = useVisibility(ref)
+  const { isFullyVisible, isTotallyInvisible } = useVisibility(ref)
 
   useEffect(() => {
-    if (isVisible) {
-      console.info(`${props.product.name} - ${props.slide.image} is visible`)
-      props.onVisible()
+    if (isFullyVisible) {
+      console.info(`${props.product.name} - ${props.slide.image} is in the viewport`)
+      props.onEnterViewport()
     }
-  }, [isVisible, props.product, props.slide]);
+    if (isTotallyInvisible) {
+      console.info(`${props.product.name} - ${props.slide.image} is not in the viewport`)
+      props.onExitViewport()
+    }
+  }, [isFullyVisible, isTotallyInvisible, props.product, props.slide]);
 
+  const bgColor = props.color % 2 === 1 ? 'red' : 'cyan'
   return (
-    <div ref={ref} className="h-lvh w-full">
-      <img
-        alt={`${props.product.name}`}
-        className={`pl-7 object-${props.slide.imageSize || "cover"} object-${props.slide.imageAnchor || "center"} h-full w-full`}
-        src={props.slide.image}
-      />
+    <div ref={ref} className={`h-lvh w-full`} style={{ backgroundColor: bgColor}}>
     </div>
   );
 }

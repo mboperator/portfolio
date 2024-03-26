@@ -16,7 +16,9 @@ export type Product = {
   organization: string
   name: string
   description: string
+  coverImage: string
+  coverImageAnchor?: string
   platform: Platform[]
   technologies: Technology[]
-  slides: Slide[]
+  slides?: Slide[]
 }
