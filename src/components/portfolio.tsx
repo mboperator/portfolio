@@ -9,7 +9,7 @@ import {Property} from "csstype";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
-    <p key={props.slide.description} className={`sticky h-lvh pb-7 text-lg text-white`}>
+    <p key={props.slide.description} className={`sticky pb-7 text-lg text-white`}>
       {props.slide.description}
     </p>
   )
@@ -59,21 +59,25 @@ const StickyContext = React.createContext<StickyContextState & StickyContextActi
 
 function calculateChildVisibilityState(children: Map<string, StickyChild>, scrollPosition: number, parentContainerEnd: number) {
   const updatedChildren = new Map();
-  const childrenArr = new Array(children.values());
+  const childrenArr = Array.from(children.values());
   const viewportHeight = document.documentElement.clientHeight;
   const viewportBounds = { top: scrollPosition, bottom: viewportHeight + scrollPosition }
+
+  const totalHeight = childrenArr.reduce((totalHeight, child) => totalHeight += child.height, 0);
+
+
+  const isScrollingPastParentContainer = (scrollPosition >= parentContainerEnd - (totalHeight));
+  const parentContainerOvershoot = (scrollPosition - (parentContainerEnd - (totalHeight)));
 
   let accumulatedHeights = 0;
   children.forEach((child, key) => {
     const containerEnd = child.absolutePosition + child.height;
     const inViewport = viewportBounds.bottom > child.absolutePosition && viewportBounds.top < containerEnd;
-    const isScrollingPastParentContainer = (scrollPosition >= parentContainerEnd - child.height);
-    const parentContainerOvershoot = (scrollPosition - (parentContainerEnd - child.height));
     updatedChildren.set(key, {
       ...child,
       inViewport,
       sticky: viewportBounds.top + accumulatedHeights >= (child.absolutePosition),
-      stickyOffset: isScrollingPastParentContainer ? -parentContainerOvershoot : accumulatedHeights,
+      stickyOffset: isScrollingPastParentContainer ? -parentContainerOvershoot + accumulatedHeights : accumulatedHeights,
     })
 
     accumulatedHeights += child.height;
@@ -133,7 +137,7 @@ function StickyContainer(props: any) {
   )
 }
 
-function Sticky(props: { id: string, stickyClassName: string, children: any, className: string }) {
+function Sticky(props: { id: string, stickyClassName: string, children: any, className: string, debug: boolean }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const { absolutePosition, registerChild, children } = React.useContext(StickyContext);
   useEffect(() => {
@@ -162,8 +166,12 @@ function Sticky(props: { id: string, stickyClassName: string, children: any, cla
   }
   return (
     <>
-      <div className={props.stickyClassName} style={stickyStyle}>
+      <div className={`${props.stickyClassName} relative`} style={stickyStyle}>
         {props.children}
+
+        {props.debug && (<div className="absolute right-0 top-20 bg-amber-300">
+          <p>{JSON.stringify(self, null, 2)}</p>
+        </div>)}
       </div>
 
       <div ref={containerRef} className={props.className} style={{ visibility: isStuck ? 'hidden' : 'visible' }}>
@@ -189,7 +197,7 @@ export function SplitLayout(props: any) {
   return (
     <div className="flex flex-row h-lvh">
       <div className="w-1/4 bg-gradient-to-r from-black">
-        <Sticky id={props.id} className="px-12 py-7" stickyClassName="px-12 py-7 w-1/4 ">
+        <Sticky id={props.id} className="px-12 py-7" stickyClassName="px-12 py-7 w-1/4 relative" debug={false}>
           {props.renderMenu()}
         </Sticky>
       </div>
