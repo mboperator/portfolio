@@ -21,7 +21,7 @@ type StickyContextState = {
   children: Map<string, StickyChild>
 }
 type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
-const StickyContext = React.createContext<StickyContextState & StickyContextActions>({
+export const StickyContext = React.createContext<StickyContextState & StickyContextActions>({
   absolutePosition: -1,
   inViewport: false,
   scrollPosition: -1,

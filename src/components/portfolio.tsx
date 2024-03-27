@@ -3,21 +3,27 @@ import {Product, Slide} from "@/types";
 import {SlideImage as SlidePlaceholder} from "@/components/slideImage";
 import React from "react";
 import {PRODUCTS} from "@/data";
-import {Sticky, StickyContainer} from "@/components/sticky";
+import {Sticky, StickyContainer, StickyContext} from "@/components/sticky";
+import {id} from "postcss-selector-parser";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
-    <p key={props.slide.description} className={`sticky pb-7 text-lg text-white`}>
+    <p className={`sticky pb-7 text-lg text-white`}>
       {props.slide.description}
     </p>
   )
 }
 
-function SlideImage(props: { slide: Slide, isVisible: boolean }) {
+function SlideImage(props: { id: string, slide: Slide }) {
+  const {children} = React.useContext(StickyContext);
+  const self = children.get(props.id)
+  if (self?.sticky) {
+    console.log('SlideImage', self);
+  }
   return (
     <img
       alt={props.slide.description || 'no-alt'}
-      className={`${props.isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity pl-7 object-cover object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
+      className={`${self?.sticky ? 'opacity-100' : 'opacity-50'} ${self?.sticky ? 'blur-0' : 'blur-sm'} transition-all duration-700 pl-7 object-cover object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
   )
 }
 
@@ -33,7 +39,7 @@ export function Portfolio() {
   );
 }
 
-export function SplitLayout(props: any) {
+export function SplitLayout(props: {  id: string, renderMenu: any, renderBody: any }) {
   return (
     <div className="flex flex-row h-lvh">
       <div className="w-1/4 bg-gradient-to-r from-black">
@@ -65,24 +71,18 @@ export function ProductShowcase(props: { product: Product }) {
           </>
         )}
         renderBody={() =>(
-          <SlideImage slide={{ image: props.product.coverImage, imageAnchor: props.product.coverImageAnchor }} isVisible/>
+          <SlideImage id="header" slide={{ image: props.product.coverImage, imageAnchor: props.product.coverImageAnchor }} />
         )}
       />
       {slides.map((slide, index) => (
         <SplitLayout
           key={index}
-          id={index}
+          id={`${index}`}
           renderMenu={() => (
-            <SlideDescription key={index} slide={slide} />
+            <SlideDescription slide={slide} />
           )}
           renderBody={() => (
-            <SlidePlaceholder
-              key={`${index}--${slide.description}`}
-              product={props.product}
-              slide={slide}
-              onEnterViewport={() => {}}
-              onExitViewport={() => {}}
-            />
+            <SlideImage id={`${index}`} slide={slide} />
           )}
         />
       ))}
