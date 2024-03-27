@@ -81,7 +81,7 @@ function StickyContainer(props: any) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [state, setState] = React.useState(INITIAL_STICKY_STATE);
 
-  function registerChild(id, child) {
+  function registerChild(id: string, child: StickyChild) {
     setState(state => ({
       ...state,
         children: state.children.set(id, child)

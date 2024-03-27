@@ -9,7 +9,7 @@ export function useScrollPosition() {
       setScrollPosition(currentPosition)
       console.info('useScrollPosition', currentPosition);
     })
-  }, [])
+  }, [setScrollPosition])
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll)
