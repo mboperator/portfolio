@@ -44,18 +44,16 @@ type StickyContextState = {
   children: Map<string, StickyChild>
 }
 
-const INITIAL_STICKY_STATE = {
+type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
+
+const StickyContext = React.createContext<StickyContextState & StickyContextActions>({
   absolutePosition: -1,
   inViewport: false,
   scrollPosition: -1,
   containerEnd: -1,
   children: new Map(),
   registerChild: (id: string, child: StickyChild) => {}
-}
-
-type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
-
-const StickyContext = React.createContext<StickyContextState & StickyContextActions>(INITIAL_STICKY_STATE)
+})
 
 function calculateChildVisibilityState(children: Map<string, StickyChild>, scrollPosition: number, parentContainerEnd: number) {
   const updatedChildren = new Map();
@@ -64,7 +62,6 @@ function calculateChildVisibilityState(children: Map<string, StickyChild>, scrol
   const viewportBounds = { top: scrollPosition, bottom: viewportHeight + scrollPosition }
 
   const totalHeight = childrenArr.reduce((totalHeight, child) => totalHeight += child.height, 0);
-
 
   const isScrollingPastParentContainer = (scrollPosition >= parentContainerEnd - (totalHeight));
   const parentContainerOvershoot = (scrollPosition - (parentContainerEnd - (totalHeight)));
@@ -87,6 +84,13 @@ function calculateChildVisibilityState(children: Map<string, StickyChild>, scrol
 }
 
 function StickyContainer(props: any) {
+  const INITIAL_STICKY_STATE = {
+    absolutePosition: -1,
+    inViewport: false,
+    scrollPosition: -1,
+    containerEnd: -1,
+    children: new Map(),
+  }
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [state, setState] = React.useState(INITIAL_STICKY_STATE);
 
@@ -127,7 +131,7 @@ function StickyContainer(props: any) {
 
   if (props.debug) {
     console.info('StickyContainerState', state)
-    console.info('Child', state.children.get('header'))
+    console.info('Child', Array.from(state.children.values()))
   }
 
   return (
@@ -211,12 +215,10 @@ export function SplitLayout(props: any) {
 
 
 export function ProductShowcase(props: { product: Product }) {
-  const { scrollPosition } = useScrollPosition();
-  const containerRef = React.useRef<HTMLDivElement | null>(null);
   const { slides = [] } = props.product
 
   return (
-    <StickyContainer debug={props.product.slug === 'ila-lantern'} className="flex flex-col">
+    <StickyContainer className="flex flex-col">
       <SplitLayout
         id="header"
         renderMenu={() => (
