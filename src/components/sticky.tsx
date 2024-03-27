@@ -2,10 +2,6 @@
 import React, {useEffect} from "react";
 import {Property} from "csstype";
 
-type VisibilityInfo = {
-  enteredAt?: number
-  visible: boolean
-}
 type StickyChild = {
   sticky?: boolean
   stickyOffset: number;
@@ -14,6 +10,7 @@ type StickyChild = {
   inViewport?: boolean;
   width: number;
 }
+
 type StickyContextState = {
   absolutePosition: number
   inViewport: boolean
@@ -21,6 +18,7 @@ type StickyContextState = {
   containerEnd: number
   children: Map<string, StickyChild>
 }
+
 type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
 export const StickyContext = React.createContext<StickyContextState & StickyContextActions>({
   absolutePosition: -1,

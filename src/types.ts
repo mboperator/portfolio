@@ -1,4 +1,4 @@
-import {Key} from "react";
+import { FunctionComponent, Key } from "react";
 
 export type Technology = string;
 type Platform = string;
@@ -11,10 +11,11 @@ export type ImageAnchorPosition =
 export type ImageSize = 'cover' | 'contain'
 
 export type Slide = {
-  image: string
+  image?: string
   imageAnchor?: ImageAnchorPosition
   imageSize?: ImageSize
   description?: string
+  component?: FunctionComponent<{ id: string, slide: Slide, active: boolean }>
 }
 
 export type Product = {

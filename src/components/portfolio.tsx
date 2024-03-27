@@ -1,9 +1,10 @@
+"use client"
 import {Product, Slide} from "@/types";
 import React from "react";
-import {PRODUCTS} from "@/data";
+import {getProducts} from "@/data";
 import {StickyContainer} from "@/components/sticky";
 import {SplitLayout} from "@/components/splitLayout";
-import {SlideImage} from "@/components/slideImage";
+import {SlideContent} from "@/components/slideContent";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
@@ -14,10 +15,11 @@ function SlideDescription(props: { slide: Slide }) {
 }
 
 export function Portfolio() {
+  const products = getProducts();
   return (
     <section className="min-h-screen flex flex-col">
       <div>
-        {PRODUCTS.map(product => (
+        {products.map(product => (
           <ProductShowcase key={product.slug} product={product}/>
         ))}
       </div>
@@ -39,7 +41,7 @@ export function ProductShowcase(props: { product: Product }) {
           </div>
         }
         body={
-          <SlideImage id="header" slide={{ image: props.product.coverImage, imageSize: props.product.coverImageSize, imageAnchor: props.product.coverImageAnchor }} />
+          <SlideContent id="header" slide={{ image: props.product.coverImage, imageSize: props.product.coverImageSize, imageAnchor: props.product.coverImageAnchor }} />
         }
       />
       {slides.map((slide, index) => (
@@ -50,7 +52,7 @@ export function ProductShowcase(props: { product: Product }) {
             <SlideDescription slide={slide} />
           }
           body={
-            <SlideImage id={`${index}`} slide={slide} />
+            <SlideContent id={`${index}`} slide={slide} />
           }
         />
       ))}
