@@ -140,7 +140,7 @@ export function Sticky(props: {
     }
   }, [containerRef, absolutePosition]);
 
-  const self = children.get(props.id) || {sticky: false, stickyOffset: 0};
+  const self = children.get(props.id) || {width: 0, sticky: false, stickyOffset: 0};
   const isStuck = self.sticky;
   const stickyOffset = self.stickyOffset
   const stickyStyle = {
