@@ -1,14 +1,13 @@
 "use client"
 import {Product, Slide} from "@/types";
-import {SlideImage as SlidePlaceholder} from "@/components/slideImage";
 import React from "react";
 import {PRODUCTS} from "@/data";
-import {Sticky, StickyContainer, StickyContext} from "@/components/sticky";
-import {id} from "postcss-selector-parser";
+import {StickyContainer, StickyContext} from "@/components/sticky";
+import {SplitLayout} from "@/components/splitLayout";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
-    <p className={`sticky pb-7 text-lg text-white`}>
+    <p className={`sticky pb-7 px-12 text-lg text-white`}>
       {props.slide.description}
     </p>
   )
@@ -20,10 +19,11 @@ function SlideImage(props: { id: string, slide: Slide }) {
   if (self?.sticky) {
     console.log('SlideImage', self);
   }
+  const imageSize = `object-${props.slide.imageSize || 'cover'}`
   return (
     <img
       alt={props.slide.description || 'no-alt'}
-      className={`${self?.sticky ? 'opacity-100' : 'opacity-50'} ${self?.sticky ? 'blur-0' : 'blur-sm'} transition-all duration-700 pl-7 object-cover object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
+      className={`${imageSize} ${self?.sticky ? 'opacity-100' : 'opacity-50'} ${self?.sticky ? 'blur-0' : 'blur-sm'} transition-all duration-700 pl-7 object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
   )
 }
 
@@ -38,24 +38,6 @@ export function Portfolio() {
     </section>
   );
 }
-
-export function SplitLayout(props: {  id: string, renderMenu: any, renderBody: any }) {
-  return (
-    <div className="flex flex-row h-lvh">
-      <div className="w-1/4 bg-gradient-to-r from-black">
-        <Sticky id={props.id} className="px-12 py-7" debug={false}>
-          {props.renderMenu()}
-        </Sticky>
-      </div>
-
-      <div className="min-h-lvh w-3/4">
-        {props.renderBody()}
-      </div>
-    </div>
-  )
-}
-
-
 export function ProductShowcase(props: { product: Product }) {
   const { slides = [] } = props.product
 
@@ -63,30 +45,29 @@ export function ProductShowcase(props: { product: Product }) {
     <StickyContainer className="flex flex-col">
       <SplitLayout
         id="header"
-        renderMenu={() => (
-          <>
+        menu={
+          <div className="px-12 py-7" >
             <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
             <h2 className="text-5xl text-white">{props.product.name.toLowerCase()}</h2>
             <p className="text-lg pt-3 pb-7 text-white">{props.product.description}</p>
-          </>
-        )}
-        renderBody={() =>(
-          <SlideImage id="header" slide={{ image: props.product.coverImage, imageAnchor: props.product.coverImageAnchor }} />
-        )}
+          </div>
+        }
+        body={
+          <SlideImage id="header" slide={{ image: props.product.coverImage, imageSize: props.product.coverImageSize, imageAnchor: props.product.coverImageAnchor }} />
+        }
       />
       {slides.map((slide, index) => (
         <SplitLayout
           key={index}
           id={`${index}`}
-          renderMenu={() => (
+          menu={
             <SlideDescription slide={slide} />
-          )}
-          renderBody={() => (
+          }
+          body={
             <SlideImage id={`${index}`} slide={slide} />
-          )}
+          }
         />
       ))}
     </StickyContainer>
-
   );
 }

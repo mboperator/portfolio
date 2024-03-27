@@ -18,6 +18,7 @@ export type Product = {
   description: string
   coverImage: string
   coverImageAnchor?: string
+  coverImageSize?: string
   platform: Platform[]
   technologies: Technology[]
   slides?: Slide[]

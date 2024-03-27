@@ -5,11 +5,15 @@ export const PRODUCTS: Product[] = [
     slug: 'ila-lantern',
     organization: 'Totum Technologies',
     name: 'Ila Lantern',
-    description: 'The light built for moments of connection.',
+    description: 'Ila is the lantern built for moments of connection. It has been in active development since 2020.',
     platform: ['mobile'],
     technologies: ['react-native', 'ble', 'mobx'],
-    coverImage: 'ila-lantern.png',
-    slides: []
+    coverImage: 'ila-lantern.webp',
+    slides: [
+      { image: "ila-brothers.jpeg", imageSize: 'contain', description: 'This product is a result of the combined efforts of my best friend, co-founder, and electrical engineer - Emmanuel Chagbe - and I.'},
+      { image: "ila-specs.png", imageSize: 'contain', description: 'The lantern is designed to deliver best in class battery life, brightness, and resilience.'},
+      { image: "ila-lantern-workshop.png", imageSize: 'contain', description: 'Personally, I\'m responsible for hardware design, software architecture, and firmware and mobile app implementation.'}
+    ]
   },
   {
     slug: 'redeemers-church-ventura',
@@ -17,9 +21,14 @@ export const PRODUCTS: Product[] = [
     name: "Redeemer's Community",
     description: "The community app for my local church family.",
     platform: ['mobile', 'web'],
-    technologies: ['react-native', 'ruby-on-rails', 'mobx'],
+    technologies: ['react-native', 'ruby-on-rails', 'mobx', 'nextjs'],
     coverImage: 'redeemers-ventura.jpeg',
-    slides: []
+    slides: [
+      { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'This project was started to solve a need for Redemer\'s Church Ventura during COVID.'},
+      { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'At the time, prayer requests were being done by hand. The problem to solve was to digitize the entire process to keep both staff and congregants as safe as possible.'},
+      { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'},
+      { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system.'},
+    ]
   },
   {
     slug: 'odyssey-journal',
