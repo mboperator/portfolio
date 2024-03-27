@@ -21,7 +21,7 @@ const data = [
 export function IlaSpecs(props: any) {
   return (
     <div className="flex flex-col h-full w-full p-7">
-      <div className="h-1/2 flex flex-row justify-evenly">
+      <div className="h-2/5 mb-7 flex flex-row justify-evenly">
         <div className="w-1/2 flex flex-col items-center">
           <h1 className="mt-3 text-white">Battery Life at Max Brightness</h1>
 
@@ -51,7 +51,6 @@ export function IlaSpecs(props: any) {
           </div>
         <div className="w-1/2 flex flex-col items-center">
           <h1 className="mt-3 text-white">Maximum Brightness (lumens)</h1>
-
           <VictoryChart
             name="Maximum Brightness (lumens)"
             theme={VictoryTheme.grayscale}
