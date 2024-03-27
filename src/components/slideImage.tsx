@@ -1,46 +1,34 @@
 "use client"
-import {Product, Slide} from "@/types";
-import React, {useEffect} from "react";
+import {ImageAnchorPosition, Slide} from "@/types";
+import React from "react";
+import {StickyContext} from "@/components/sticky";
 
-function useVisibility(ref: React.RefObject<HTMLDivElement | null>) {
-  const [isFullyVisible, setIsVisible] = React.useState<boolean>(false);
-  const [isTotallyInvisible, setIsTotallyInvisible] = React.useState<boolean>(false);
-
-  useEffect(() => {
-    if (!ref.current) return
-    const entranceObserver = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting)
-    }, { threshold: .99 });
-
-    const exitObserver = new IntersectionObserver(([entry]) => {
-      setIsTotallyInvisible(entry.isIntersecting)
-    }, { threshold: .01 });
-
-    entranceObserver.observe(ref.current);
-  }, [ref]);
-
-  return { isFullyVisible, isTotallyInvisible }
+const anchorPositions = {
+  center: 'center',
+  left: 'left',
+  bottom: 'bottom',
 }
 
-type VisibilityHandler = () => any
+const imageSizes = {
+  cover: 'object-cover',
+  contain: 'object-contain',
+}
 
-export function SlideImage(props: { product: Product, slide: Slide, onEnterViewport: VisibilityHandler, onExitViewport: VisibilityHandler }) {
-  const ref = React.createRef<HTMLDivElement>();
-  const { isFullyVisible, isTotallyInvisible } = useVisibility(ref)
+export function SlideImage(props: { id: string, slide: Slide }) {
+  const {children} = React.useContext(StickyContext);
+  const self = children.get(props.id);
+  if (self?.sticky) {
+    console.log('SlideImage', self);
+  }
 
-  useEffect(() => {
-    if (isFullyVisible) {
-      console.info(`${props.product.name} - ${props.slide.image} is in the viewport`)
-      props.onEnterViewport()
-    }
-    if (isTotallyInvisible) {
-      console.info(`${props.product.name} - ${props.slide.image} is not in the viewport`)
-      props.onExitViewport()
-    }
-  }, [isFullyVisible, isTotallyInvisible, props]);
+  const {
+    imageAnchor = 'center',
+    imageSize = 'cover'
+  } = props.slide
 
   return (
-    <div ref={ref} className={`h-lvh w-full`} >
-    </div>
-  );
+    <img
+      alt={props.slide.description || 'no-alt'}
+      className={`${imageSizes[imageSize]} ${anchorPositions[imageAnchor]} ${self?.sticky ? 'opacity-100' : 'opacity-50'} ${self?.sticky ? 'blur-0' : 'blur-sm'} transition-all duration-700 pl-7 h-full w-full`} src={props.slide.image} />
+  )
 }

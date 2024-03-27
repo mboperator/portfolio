@@ -1,29 +1,15 @@
-"use client"
 import {Product, Slide} from "@/types";
 import React from "react";
 import {PRODUCTS} from "@/data";
-import {StickyContainer, StickyContext} from "@/components/sticky";
+import {StickyContainer} from "@/components/sticky";
 import {SplitLayout} from "@/components/splitLayout";
+import {SlideImage} from "@/components/slideImage";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
     <p className={`sticky pb-7 px-12 text-lg text-white`}>
       {props.slide.description}
     </p>
-  )
-}
-
-function SlideImage(props: { id: string, slide: Slide }) {
-  const {children} = React.useContext(StickyContext);
-  const self = children.get(props.id)
-  if (self?.sticky) {
-    console.log('SlideImage', self);
-  }
-  const imageSize = `object-${props.slide.imageSize || 'cover'}`
-  return (
-    <img
-      alt={props.slide.description || 'no-alt'}
-      className={`${imageSize} ${self?.sticky ? 'opacity-100' : 'opacity-50'} ${self?.sticky ? 'blur-0' : 'blur-sm'} transition-all duration-700 pl-7 object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
   )
 }
 

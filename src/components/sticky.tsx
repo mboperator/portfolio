@@ -1,3 +1,4 @@
+"use client"
 import React, {useEffect} from "react";
 import {Property} from "csstype";
 
@@ -120,7 +121,7 @@ export function StickyContainer(props: any) {
 export function Sticky(props: {
   id: string,
   children: any,
-  className: string,
+  className?: string,
   debug: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)

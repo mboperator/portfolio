@@ -1,3 +1,4 @@
+"use client"
 import {Sticky} from "@/components/sticky";
 import React from "react";
 
