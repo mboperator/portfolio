@@ -37,7 +37,7 @@ export function SlideImage(props: { product: Product, slide: Slide, onEnterViewp
       console.info(`${props.product.name} - ${props.slide.image} is not in the viewport`)
       props.onExitViewport()
     }
-  }, [isFullyVisible, isTotallyInvisible, props.product, props.slide]);
+  }, [isFullyVisible, isTotallyInvisible, props]);
 
   return (
     <div ref={ref} className={`h-lvh w-full`} >

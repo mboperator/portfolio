@@ -4,6 +4,8 @@ import {SlideImage as SlidePlaceholder} from "@/components/slideImage";
 import React, {useEffect} from "react";
 import {useScrollPosition} from "@/components/useScrollPosition";
 import {PRODUCTS} from "@/data";
+import Image from "next/image";
+import {Property} from "csstype";
 
 function SlideDescription(props: { slide: Slide }) {
   return (
@@ -15,7 +17,9 @@ function SlideDescription(props: { slide: Slide }) {
 
 function SlideImage(props: { slide: Slide, isVisible: boolean }) {
   return (
-    <img className={`${props.isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity pl-7 object-${props.slide.imageSize || "cover"} object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
+    <img
+      alt={props.slide.description || 'no-alt'}
+      className={`${props.isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity pl-7 object-cover object-${props.slide.imageAnchor || "center"} h-full w-full`} src={props.slide.image} />
   )
 }
 
@@ -26,6 +30,7 @@ type VisibilityInfo = {
 
 type StickyChild = {
   sticky?: boolean
+  stickyOffset: number;
   height: number;
   absolutePosition: number;
   inViewport?: boolean;
@@ -48,9 +53,9 @@ const INITIAL_STICKY_STATE = {
   registerChild: (id: string, child: StickyChild) => {}
 }
 
-type StickyContextActions = { registerChild: (child: StickyChild) => void }
+type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
 
-const StickyContext = React.createContext<StickyContextState | StickyContextActions>(INITIAL_STICKY_STATE)
+const StickyContext = React.createContext<StickyContextState & StickyContextActions>(INITIAL_STICKY_STATE)
 
 function calculateChildVisibilityState(children: Map<string, StickyChild>, scrollPosition: number, parentContainerEnd: number) {
   const updatedChildren = new Map();
@@ -128,7 +133,7 @@ function StickyContainer(props: any) {
   )
 }
 
-function Sticky(props: { id: string }) {
+function Sticky(props: { id: string, stickyClassName: string, children: any, className: string }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const { absolutePosition, registerChild, children } = React.useContext(StickyContext);
   useEffect(() => {
@@ -140,16 +145,24 @@ function Sticky(props: { id: string }) {
       registerChild(props.id, {
         absolutePosition: offsetFromTop,
         height: boundingRect.height,
+        stickyOffset: 0,
       })
     }
   }, [containerRef, absolutePosition]);
 
-  const self = children.get(props.id) || {};
+  const self = children.get(props.id) || { sticky: false, stickyOffset: 0 };
   const isStuck = self.sticky;
   const stickyOffset = self.stickyOffset
+  const stickyStyle = {
+    position: 'fixed' as Property.Position,
+    top: isStuck ? 0 : -9999,
+    transform: isStuck ? `translateY(${stickyOffset}px)` : '',
+    right: 0,
+    left: 0
+  }
   return (
     <>
-      <div className={props.stickyClassName} style={{ position: 'fixed', top: isStuck ? 0 : -9999, transform: isStuck && `translateY(${stickyOffset}px)`,right: 0, left: 0 }}>
+      <div className={props.stickyClassName} style={stickyStyle}>
         {props.children}
       </div>
 
