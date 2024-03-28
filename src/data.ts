@@ -1,5 +1,6 @@
 import {Product} from "@/types";
 import {IlaSpecs} from "@/components/ilaSpecs";
+import {IlaImplementation} from "@/components/ilaImplementation";
 
 export function getProducts(): Product[] {
   return [
@@ -12,12 +13,14 @@ export function getProducts(): Product[] {
       technologies: ['react-native', 'ble', 'mobx'],
       coverImage: '/ila-lantern/lantern.webp',
       slides: [
-        { image: "/ila-lantern/brothers.jpeg", imageSize: 'contain', description: 'This product is a result of the combined efforts of my best friend, co-founder, and electrical engineer - Emmanuel Chagbe - and I.'},
         {
           description: 'The lantern is designed to deliver best in class battery life, brightness, and resilience.',
           component: IlaSpecs
         },
-        { image: "/ila-lantern/workshop.png", imageSize: 'contain', description: 'Personally, I\'m responsible for hardware design, software architecture, and firmware and mobile app implementation.'}
+        {
+          description: 'I\'m responsible for product management, industrial design, UI/UX, and firmware and mobile app.',
+          component: IlaImplementation
+        }
       ]
     },
     {

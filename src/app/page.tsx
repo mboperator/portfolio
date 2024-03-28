@@ -24,7 +24,7 @@ function Contact() {
 
 export default function Home() {
   return (
-    <main className="flex flex-col w-screen bg-gray-950">
+    <main className="flex flex-col w-screen bg-black">
       <HeroSection />
       <Portfolio />
       <Contact />

@@ -12,6 +12,9 @@ const config: Config = {
         '2/3vh': '66vh',
         '7/10vh': '70vh',
       },
+      transitionDuration: {
+        '1500': '1500ms'
+      },
       backgroundImage: {
         'sunset': "url('/bg-1.png')"
       }
