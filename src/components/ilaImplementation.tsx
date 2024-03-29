@@ -88,24 +88,24 @@ export const IlaImplementation = React.memo(function IlaImplementation(props: an
 
   return (
     <div className={`flex flex-col h-full w-full p-7 ${props.active ? 'opacity-100' : 'opacity-50'} ${props.active ? 'blur-0' : 'blur-sm'} transition-all duration-700`}>
-      <div className="h-1/2 w-full relative">
+      <div className="h-1/2 flex-1 w-full relative">
         <Image
           alt="Ila Lantern in the midst of various parts in the old workshop space"
           src="/ila-lantern/workshop.png"
           fill
-          className={`object-contain ease-linear transition-all ${duration}`} style={{ filter: `brightness(0.${currentBrightness})`}}
+          className={`object-cover object-center ease-linear transition-all ${duration}`} style={{ filter: `brightness(0.${currentBrightness})`}}
         />
       </div>
-      <div className="flex- 1 flex flex-row">
+      <div className="h-1/2 flex-1 flex flex-row">
         <div className="flex flex-col w-1/2">
-          <video controls ref={tutorialVideo}>
+          <video className="object-contain h-3/4" controls ref={tutorialVideo}>
             <source src="/ila-lantern/tutorial.mp4" />
           </video>
           <h1 className="py-3 text-white text-xl">First Use Tutorial</h1>
           <p className="text-white">We found that early customers had issues changing the brightness. The purpose of this tutorial is to teach customers how to use Ila Lantern's touch button in an engaging and interactive way. The React Native app subscribes to changes to the device's state via Bluetooth Low Energy characteristic notifications.</p>
         </div>
         <div className="flex flex-col w-1/2">
-          <video controls ref={controlVideo}>
+          <video className="object-contain h-3/4" controls ref={controlVideo}>
             <source src="/ila-lantern/control.mp4" />
           </video>
           <h1 className="py-3 text-white text-xl">Lantern Control Page</h1>

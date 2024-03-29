@@ -1,6 +1,7 @@
 import {Product} from "@/types";
 import {IlaSpecs} from "@/components/ilaSpecs";
 import {IlaImplementation} from "@/components/ilaImplementation";
+import {RedeemersApp} from "@/components/redeemersApp";
 
 export function getProducts(): Product[] {
   return [
@@ -27,15 +28,22 @@ export function getProducts(): Product[] {
       slug: 'redeemers-church-ventura',
       organization: "Redeemer's Church Ventura",
       name: "Redeemer's Community",
-      description: "The community app for my local church family.",
+      description: "The community app for Redeemer's Church Ventura. This project was started to solve a need for Redeemer\'s Church Ventura during COVID.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'ruby-on-rails', 'mobx', 'nextjs'],
-      coverImage: 'redeemers-ventura.jpeg',
+      coverImage: '/redeemers-church/landing-page.png',
+      coverImageSize: 'contain',
       slides: [
-        { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'This project was started to solve a need for Redeemer\'s Church Ventura during COVID.'},
-        { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'At the time, prayer requests were being done by hand. The problem to solve was to digitize the entire process to keep both staff and congregants as safe as possible.'},
-        { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'},
-        { image: "redeemers-ventura.jpeg", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system.'},
+        {
+          image: "/redeemers-church/prayer-requests.png",
+          imageSize: 'contain',
+          description: 'At the time, prayer requests were being submitted and received by hand. The solution was to digitize the entire process to keep both staff and congregants as safe as possible.'
+        },
+        {
+          component: RedeemersApp,
+          description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'
+        },
+        { image: "/redeemers-church/admin.png", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system.'},
       ]
     },
     {
