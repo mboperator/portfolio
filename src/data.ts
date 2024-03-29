@@ -2,6 +2,7 @@ import {Product} from "@/types";
 import {IlaSpecs} from "@/components/ilaSpecs";
 import {IlaImplementation} from "@/components/ilaImplementation";
 import {RedeemersApp} from "@/components/redeemersApp";
+import {OdysseyApp} from "@/components/odysseyApp";
 
 export function getProducts(): Product[] {
   return [
@@ -53,8 +54,14 @@ export function getProducts(): Product[] {
       description: "The private, encrypted journal for one's walk with God.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'mobx'],
-      coverImage: 'odyssey-journal.png',
-      slides: [],
+      coverImage: '/odyssey-journal/landing-page.png',
+      coverImageSize: 'contain',
+      slides: [
+        {
+          component: OdysseyApp,
+          description: 'Odyssey is implemented using React Native, Firebase, the compromise NLP library, and Nextjs.'
+        },
+      ],
     },
     {
       slug: 'prequalification',
