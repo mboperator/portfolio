@@ -44,7 +44,7 @@ export function getProducts(): Product[] {
           component: RedeemersApp,
           description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'
         },
-        { image: "/redeemers-church/admin.png", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system.'},
+        { image: "/redeemers-church/admin.png", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system. This app is implemented using Ruby on Rails, React Native, Nextjs, Postgres, and Twilio.'},
       ]
     },
     {
@@ -71,6 +71,7 @@ export function getProducts(): Product[] {
       platform: ['web'],
       technologies: ['react', 'ruby-on-rails', 'mobx'],
       coverImage: 'prequal-1.png',
+      coverImageSize: 'contain',
       slides: [
         { image: 'prequal-2.png', imageSize: 'contain',  description: 'From this view, General Contractors can toggle fields on and off.'},
         { image: "prequal-3.png", imageSize: 'contain', description: 'General Contractors also see submitted Prequalification form results.'}
@@ -95,9 +96,11 @@ export function getProducts(): Product[] {
       technologies: ['react', 'ruby-on-rails', 'redux'],
       coverImage: 'project-financials.png',
       coverImageAnchor: 'left',
+      coverImageSize: 'contain',
       slides: [{
         image: 'project-financials.png',
         imageAnchor: 'left',
+        imageSize: 'contain'
       }],
     },
     {
@@ -108,6 +111,7 @@ export function getProducts(): Product[] {
       platform: ['web'],
       technologies: ['react', 'sass'],
       coverImage: 'core-react.png',
+      coverImageSize: 'contain',
     },
   ]
 
