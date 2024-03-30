@@ -1,6 +1,6 @@
 export function RedeemersApp(props: { active: boolean }) {
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${props.active ? 'opacity-100' : 'opacity-50'} ${props.active ? 'blur-0' : 'blur-sm'} transition-all duration-700`}>
       <div className="flex flex-row">
         <div className="h-full w-1/3">
           <img className="h-full w-full object-cover" src="/redeemers-church/app-announcements.png" />

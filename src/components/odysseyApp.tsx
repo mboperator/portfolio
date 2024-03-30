@@ -1,6 +1,6 @@
 export function OdysseyApp(props: { active: boolean }) {
   return (
-    <div className="h-full flex flex-row justify-center align-center p-24">
+    <div className={`h-full flex flex-row justify-center align-center p-24 ${props.active ? 'opacity-100' : 'opacity-50'} ${props.active ? 'blur-0' : 'blur-sm'} transition-all duration-700`}>
       <div className="h-full w-1/3 flex flex-col justify-center p-12">
         <video controls className="h-full w-full object-cover">
           <source src="/odyssey-journal/dashboard.mov" />
