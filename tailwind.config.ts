@@ -8,12 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      height: {
+        '2/3vh': '66vh',
+        '7/10vh': '70vh',
       },
-    },
+      transitionDuration: {
+        '1500': '1500ms'
+      },
+      backgroundImage: {
+        'sunset': "url('/bg-1.png')"
+      }
+    }
   },
   plugins: [],
 };
