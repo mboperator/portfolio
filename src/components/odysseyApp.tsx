@@ -20,7 +20,7 @@ export function OdysseyApp(props: { active: boolean }) {
           <source src="/odyssey-journal/read.mov" />
         </video>
         <h1 className="text-xl my-2 text-white">Journal Entries</h1>
-        <p className="my-3 text-white">The voyager's entries are presented in a chronological list starting with the most recent entry. Bible verses are automatically identified and tapping on the verse pulls up a modal with the Scripture referenced.</p>
+        <p className="my-3 text-white">{"The voyager's entries are presented in a chronological list starting with the most recent entry. Bible verses are automatically identified and tapping on the verse pulls up a modal with the Scripture referenced."}</p>
       </div>
     </div>
   )

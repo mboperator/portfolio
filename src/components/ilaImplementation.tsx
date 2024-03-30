@@ -102,14 +102,14 @@ export const IlaImplementation = React.memo(function IlaImplementation(props: an
             <source src="/ila-lantern/tutorial.mp4" />
           </video>
           <h1 className="py-3 text-white text-xl">First Use Tutorial</h1>
-          <p className="text-white">We found that early customers had issues changing the brightness. The purpose of this tutorial is to teach customers how to use Ila Lantern's touch button in an engaging and interactive way. The React Native app subscribes to changes to the device's state via Bluetooth Low Energy characteristic notifications.</p>
+          <p className="text-white">{"We found that early customers had issues changing the brightness. The purpose of this tutorial is to teach customers how to use Ila Lantern's touch button in an engaging and interactive way. The React Native app subscribes to changes to the device's state via Bluetooth Low Energy characteristic notifications."}</p>
         </div>
         <div className="flex flex-col w-1/2">
           <video className="object-contain h-3/4" controls ref={controlVideo}>
             <source src="/ila-lantern/control.mp4" />
           </video>
           <h1 className="py-3 text-white text-xl">Lantern Control Page</h1>
-          <p className="text-white">This page allows customers to change their lantern's brightness by moving the control or by scrolling the number readout. The UI reflects the power state of the light and changes in real-time when the physical product changes its power state or brightness.</p>
+          <p className="text-white">{"This page allows customers to change their lantern's brightness by moving the control or by scrolling the number readout. The UI reflects the power state of the light and changes in real-time when the physical product changes its power state or brightness."}</p>
         </div>
       </div>
     </div>
