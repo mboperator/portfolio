@@ -25,6 +25,24 @@ function getNodeStyle(self: StickyChild | undefined) {
   }
 }
 
+function useStickyChildReporting(id: string, ref: React.RefObject<HTMLDivElement>) {
+  const { registerChild, children} = React.useContext(StickyContext);
+
+  const reportToParent = React.useCallback(function registerWithParent()  {
+    if (!ref.current) { return; }
+    registerChild(id, ref.current);
+
+  }, [ref.current, registerChild])
+
+  useEffect(() => {
+    window.addEventListener('resize', reportToParent);
+    reportToParent();
+    () => window.removeEventListener('resize', reportToParent);
+  }, [reportToParent]);
+
+  return children.get(id);
+}
+
 export function Sticky(props: {
   id: string,
   children: any,
@@ -32,21 +50,8 @@ export function Sticky(props: {
   debug: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const { registerChild, children} = React.useContext(StickyContext);
 
-  const measureSelf = React.useCallback(() => {
-    if (!containerRef.current) { return; }
-    registerChild(props.id, containerRef.current);
-
-  }, [containerRef, registerChild])
-
-  useEffect(() => {
-    measureSelf();
-    window.addEventListener('resize', measureSelf);
-    () => window.removeEventListener('resize', measureSelf);
-  }, [measureSelf]);
-
-  const self = children.get(props.id);
+  const self = useStickyChildReporting(props.id, containerRef);
   const stickyNodeStyle = getStickyStyle(self);
   const normalNodeStyle = getNodeStyle(self);
 

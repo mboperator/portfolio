@@ -37,6 +37,7 @@ export function StickyContainer(props: StickyContainerProps) {
   useEffect(() => {
     window.addEventListener('scroll', updateChildPositions);
     window.addEventListener('resize', updateChildPositions);
+    updateChildPositions();
     () => {
       window.removeEventListener('scroll', updateChildPositions)
       window.removeEventListener('resize', updateChildPositions);
