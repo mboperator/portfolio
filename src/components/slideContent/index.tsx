@@ -2,7 +2,7 @@
 import {SlideImage} from "@/components/slideContent/slideImage";
 import {Slide} from "@/types";
 import React from "react";
-import {StickyContext} from "@/components/sticky/stickyContext";
+import {StickyContext} from "@/components/sticky";
 
 export function SlideContent(props: { id: string, slide: Slide}) {
   const {children} = React.useContext(StickyContext);
