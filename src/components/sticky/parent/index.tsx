@@ -1,12 +1,12 @@
 "use client"
 import React, {useEffect} from "react";
 import {StickyChild, StickyContainerProps} from "../types";
-import {useStickyContainerState} from "./utils";
+import {useStickyParent} from "./useStickyParent";
 import {StickyContext} from "../context";
 
 export function StickyParent(props: StickyContainerProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const { registerChild, updateChildPositions, children} = useStickyContainerState(containerRef);
+  const { registerChild, updateChildPositions, children} = useStickyParent(containerRef);
 
   useEffect(() => {
     window.addEventListener('scroll', updateChildPositions);
