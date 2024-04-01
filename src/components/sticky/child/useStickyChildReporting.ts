@@ -1,24 +1,29 @@
 import React, {useEffect} from "react";
 import { StickyContext } from "../context";
+import { StickyChildPositionState } from "../types";
 
-function checkForUpdates(current, next) {
+function checkForUpdates(current: StickyChildPositionState, next: StickyChildPositionState) {
   if (current.sticky == next.sticky && current.stickyOffset === next.stickyOffset) { return false }
   return true;
 }
 
 export function useStickyChildReporting(id: string, ref: React.RefObject<HTMLDivElement>) {
   const {registerChild, children} = React.useContext(StickyContext);
-  const [self, setSelf] = React.useState({});
+  const [self, setSelf] = React.useState<StickyChildPositionState>({
+
+  } as StickyChildPositionState);
 
   const readFromParent = React.useCallback(() => {
-    const updated = checkForUpdates({ ... self }, children.get(id))
-    if (updated) {
-      setSelf(state => {
-        return {
-        ... children.get(id)
-        }
-      })
-    }
+    window.requestAnimationFrame(() => {
+      const updated = checkForUpdates({ ... self }, children.get(id) as StickyChildPositionState)
+      if (updated) {
+        setSelf(state => {
+          return {
+            ... children.get(id) as StickyChildPositionState
+          }
+        })
+      }
+    })
   }, [self, children, setSelf, id])
 
   const reportToParent = React.useCallback(function registerWithParent() {
@@ -40,6 +45,5 @@ export function useStickyChildReporting(id: string, ref: React.RefObject<HTMLDiv
     }
   }, [reportToParent, readFromParent]);
 
-  console.info('rerendered', id);
   return self;
 }
