@@ -1,10 +1,10 @@
 "use client"
 import React from "react";
 import {Property} from "csstype";
-import {StickyChild} from "../types";
+import {StickyChildPositionState} from "../types";
 import { useStickyChildReporting } from "./useStickyChildReporting";
 
-function getStickyStyle(self: StickyChild| undefined) {
+function getStickyStyle(self: StickyChildPositionState| undefined) {
   if (!self) { return {} }
   return {
     position: 'fixed' as Property.Position,
@@ -17,7 +17,7 @@ function getStickyStyle(self: StickyChild| undefined) {
   }
 }
 
-function getNodeStyle(self: StickyChild | undefined) {
+function getNodeStyle(self: StickyChildPositionState | undefined) {
   if (self?.sticky) {
     return { visibility: 'hidden' as Property.Visibility, opacity: 0 }
   } else {

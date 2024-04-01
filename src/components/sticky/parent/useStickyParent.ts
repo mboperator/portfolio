@@ -1,8 +1,8 @@
 import React from "react";
-import { StickyChild } from "../types";
+import { StickyChildPositionState } from "../types";
 import {getScrollPosition, getViewportBounds} from "../utils";
 
-function calculateChildVisibilityState(parentContainer: HTMLDivElement | null, children: Map<string, StickyChild>) {
+function calculateChildVisibilityState(parentContainer: HTMLDivElement | null, children: Map<string, StickyChildPositionState>) {
   if (parentContainer === null) {
     return children;
   }
@@ -33,7 +33,7 @@ function calculateChildVisibilityState(parentContainer: HTMLDivElement | null, c
   return updatedChildren
 }
 
-function updateChild(children: Map<string, StickyChild>, id: string, params: any) {
+function updateChild(children: Map<string, StickyChildPositionState>, id: string, params: any) {
   const childToUpdate = children.get(id);
   children.set(id, {
     ...childToUpdate,
@@ -43,7 +43,7 @@ function updateChild(children: Map<string, StickyChild>, id: string, params: any
 }
 
 export function useStickyParent(containerRef: React.RefObject<HTMLDivElement>) {
-  const [state, setState] = React.useState({ children: new Map<string, StickyChild>() });
+  const [state, setState] = React.useState({ children: new Map<string, StickyChildPositionState>() });
 
   const registerChild = React.useCallback(function registerChild(id: string, childNode: HTMLDivElement ) {
     const childBoundingRect = childNode.getBoundingClientRect();

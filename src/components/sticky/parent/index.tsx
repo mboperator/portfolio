@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect} from "react";
-import {StickyChild, StickyContainerProps} from "../types";
+import {StickyContainerProps} from "../types";
 import {useStickyParent} from "./useStickyParent";
 import {StickyContext} from "../context";
 
