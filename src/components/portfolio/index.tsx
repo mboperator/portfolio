@@ -4,7 +4,7 @@ import React from "react";
 import {getProducts} from "@/data";
 import {SplitLayout} from "@/components/splitLayout";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
-import {StickyContainer} from "@/components/sticky/stickyContainer";
+import {StickyContainer} from "@/components/sticky";
 
 export function Portfolio() {
   const products = getProducts();
