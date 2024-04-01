@@ -34,11 +34,11 @@ export function getProducts(): Product[] {
       description: "The community app for Redeemer's Church Ventura. This project was started to solve a need for Redeemer\'s Church Ventura during COVID.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'ruby-on-rails', 'mobx', 'nextjs'],
-      coverImage: '/redeemers-church/landing-page.png',
+      coverImage: '/redeemers-church/landing-page.webp',
       coverImageSize: 'contain',
       slides: [
         {
-          image: "/redeemers-church/prayer-requests.png",
+          image: "/redeemers-church/prayer-requests.webp",
           imageSize: 'contain',
           description: 'At the time, prayer requests were being submitted and received by hand. The solution was to digitize the entire process to keep both staff and congregants as safe as possible.'
         },
