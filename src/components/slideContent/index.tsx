@@ -2,7 +2,7 @@
 import {SlideImage} from "@/components/slideContent/slideImage";
 import {Slide} from "@/types";
 import React from "react";
-import {StickyContext} from "@/components/sticky";
+import {StickyContext} from "@/components/sticky/stickyContext";
 
 export function SlideContent(props: { id: string, slide: Slide}) {
   const {children} = React.useContext(StickyContext);
@@ -20,3 +20,4 @@ export function SlideContent(props: { id: string, slide: Slide}) {
     </div>
   )
 }
+export {SlideDescription} from "@/components/slideContent/slideDescription";
