@@ -1,4 +1,6 @@
 import {StickyChild} from "@/components/sticky/types";
+import React, {useEffect} from "react";
+import { StickyContext } from "./stickyContext";
 
 export function getScrollPosition() {
   const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
@@ -48,4 +50,24 @@ export function updateChild(children: Map<string, StickyChild>, id: string, para
     ...params,
   })
   return children;
+}
+
+export function useStickyChildReporting(id: string, ref: React.RefObject<HTMLDivElement>) {
+  const {registerChild, children} = React.useContext(StickyContext);
+
+  const reportToParent = React.useCallback(function registerWithParent() {
+    if (!ref.current) {
+      return;
+    }
+    registerChild(id, ref.current);
+
+  }, [ref.current, registerChild])
+
+  useEffect(() => {
+    window.addEventListener('resize', reportToParent);
+    reportToParent();
+    () => window.removeEventListener('resize', reportToParent);
+  }, [reportToParent]);
+
+  return children.get(id);
 }

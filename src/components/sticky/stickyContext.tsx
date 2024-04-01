@@ -2,7 +2,7 @@ import {StickyChild, StickyContextActions, StickyContextState} from "@/component
 import React from "react";
 
 export const StickyContext = React.createContext<StickyContextState & StickyContextActions>({
-  children: new Map(),
-  registerChild: (id: string, child: StickyChild) => {
+  children: new Map<string, StickyChild>(),
+  registerChild: (id: string, node: HTMLDivElement) => {
   }
 })

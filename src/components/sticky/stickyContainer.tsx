@@ -4,12 +4,8 @@ import {StickyChild, StickyContainerProps} from "@/components/sticky/types";
 import {calculateChildVisibilityState, getScrollPosition, getViewportBounds, updateChild} from "@/components/sticky/utils";
 import {StickyContext} from "@/components/sticky/stickyContext";
 
-export function StickyContainer(props: StickyContainerProps) {
-  const INITIAL_STICKY_STATE = {
-    children: new Map(),
-  }
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const [state, setState] = React.useState(INITIAL_STICKY_STATE);
+function useStickyContainerState(containerRef: React.RefObject<HTMLDivElement>) {
+  const [state, setState] = React.useState({ children: new Map<string, StickyChild>() });
 
   const registerChild = React.useCallback(function registerChild(id: string, childNode: HTMLDivElement ) {
     const childBoundingRect = childNode.getBoundingClientRect();
@@ -34,6 +30,13 @@ export function StickyContainer(props: StickyContainerProps) {
     })
   }, [containerRef])
 
+  return { registerChild, updateChildPositions, children: state.children }
+}
+
+export function StickyContainer(props: StickyContainerProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const { registerChild, updateChildPositions, children} = useStickyContainerState(containerRef);
+
   useEffect(() => {
     window.addEventListener('scroll', updateChildPositions);
     window.addEventListener('resize', updateChildPositions);
@@ -45,12 +48,12 @@ export function StickyContainer(props: StickyContainerProps) {
   }, [updateChildPositions]);
 
   if (props.debug) {
-    console.info('StickyContainerState', state)
-    console.info('Child', Array.from(state.children.values()))
+    console.info('StickyContainerState')
+    console.info('Child', Array.from(children.values()))
   }
 
   return (
-    <StickyContext.Provider value={{...state, registerChild}}>
+    <StickyContext.Provider value={{ children, registerChild }}>
       <div ref={containerRef} {...props} />
     </StickyContext.Provider>
   )

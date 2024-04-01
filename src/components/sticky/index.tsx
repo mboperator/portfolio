@@ -1,8 +1,8 @@
 "use client"
-import React, {useEffect} from "react";
+import React from "react";
 import {Property} from "csstype";
-import {StickyContext} from "@/components/sticky/stickyContext";
-import { StickyChild } from "./types";
+import {StickyChild} from "./types";
+import { useStickyChildReporting } from "./utils";
 
 function getStickyStyle(self: StickyChild| undefined) {
   if (!self) { return {} }
@@ -23,24 +23,6 @@ function getNodeStyle(self: StickyChild | undefined) {
   } else {
     return { visibility: 'visible' as Property.Visibility, opacity: 1 }
   }
-}
-
-function useStickyChildReporting(id: string, ref: React.RefObject<HTMLDivElement>) {
-  const { registerChild, children} = React.useContext(StickyContext);
-
-  const reportToParent = React.useCallback(function registerWithParent()  {
-    if (!ref.current) { return; }
-    registerChild(id, ref.current);
-
-  }, [ref.current, registerChild])
-
-  useEffect(() => {
-    window.addEventListener('resize', reportToParent);
-    reportToParent();
-    () => window.removeEventListener('resize', reportToParent);
-  }, [reportToParent]);
-
-  return children.get(id);
 }
 
 export function Sticky(props: {
