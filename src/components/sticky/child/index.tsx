@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import {Property} from "csstype";
 import {StickyChildPositionState} from "../types";
 import { useStickyChildReporting } from "./useStickyChildReporting";
@@ -32,7 +32,6 @@ export function StickyChild(props: {
   debug: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-
   const self = useStickyChildReporting(props.id, containerRef);
   const stickyNodeStyle = getStickyStyle(self);
   const normalNodeStyle = getNodeStyle(self);

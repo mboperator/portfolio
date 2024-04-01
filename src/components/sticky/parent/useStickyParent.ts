@@ -20,9 +20,9 @@ function calculateChildVisibilityState(parentContainer: HTMLDivElement | null, c
   const parentContainerOvershoot = (scrollPosition - heightWithStickyElements);
 
   let accumulatedSiblingHeights = 0;
-  const updatedChildren = new Map();
+  // const updatedChildren = new Map();
   children.forEach((child, key) => {
-    updatedChildren.set(key, {
+    children.set(key, {
       ...child,
       sticky: viewportBounds.top + accumulatedSiblingHeights >= (child.absolutePosition),
       stickyOffset: isScrollingPastParentContainer ? -parentContainerOvershoot + accumulatedSiblingHeights : accumulatedSiblingHeights,
@@ -30,7 +30,7 @@ function calculateChildVisibilityState(parentContainer: HTMLDivElement | null, c
     accumulatedSiblingHeights += child.height;
   })
 
-  return updatedChildren
+  return children
 }
 
 function updateChild(children: Map<string, StickyChildPositionState>, id: string, params: any) {
@@ -43,30 +43,25 @@ function updateChild(children: Map<string, StickyChildPositionState>, id: string
 }
 
 export function useStickyParent(containerRef: React.RefObject<HTMLDivElement>) {
-  const [state, setState] = React.useState({ children: new Map<string, StickyChildPositionState>() });
+  const state = React.useRef({ children: new Map<string, StickyChildPositionState>() });
 
   const registerChild = React.useCallback(function registerChild(id: string, childNode: HTMLDivElement ) {
     const childBoundingRect = childNode.getBoundingClientRect();
     const offsetFromTop = childBoundingRect.top + document.documentElement.scrollTop
 
-    setState(state => ({
-      ...state,
-      children: updateChild(state.children, id, {
-        absolutePosition: offsetFromTop,
-        height: childBoundingRect.height,
-        width: childBoundingRect.width,
-      })
-    }))
-  }, [setState])
+    updateChild(state.current.children, id, {
+      absolutePosition: offsetFromTop,
+      height: childBoundingRect.height,
+      width: childBoundingRect.width,
+    })
+  }, [state])
 
   const updateChildPositions = React.useCallback(function updateChildPositions() {
     window.requestAnimationFrame(() => {
       if (containerRef.current === null) { return; }
-      setState(state => ({
-        children: calculateChildVisibilityState(containerRef.current, state.children),
-      }))
+      calculateChildVisibilityState(containerRef.current, state.current.children)
     })
   }, [containerRef])
 
-  return { registerChild, updateChildPositions, children: state.children }
+  return { registerChild, updateChildPositions, children: state.current.children }
 }
