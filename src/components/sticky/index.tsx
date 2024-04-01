@@ -10,21 +10,25 @@ export function Sticky(props: {
   debug: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const {absolutePosition, registerChild, children} = React.useContext(StickyContext);
-  useEffect(() => {
-    if (containerRef.current) {
-      const boundingRect = containerRef.current.getBoundingClientRect();
-      const offsetFromTop = boundingRect.top + document.documentElement.scrollTop
-      const containerEnd = offsetFromTop + boundingRect.height;
+  const { registerChild, children} = React.useContext(StickyContext);
 
-      registerChild(props.id, {
-        absolutePosition: offsetFromTop,
-        height: boundingRect.height,
-        stickyOffset: 0,
-        width: boundingRect.width,
-      })
-    }
-  }, [containerRef, absolutePosition]);
+  const measureSelf = React.useCallback(() => {
+    if (!containerRef.current) { return; }
+    const boundingRect = containerRef.current.getBoundingClientRect();
+    const offsetFromTop = boundingRect.top + document.documentElement.scrollTop
+
+    registerChild(props.id, {
+      absolutePosition: offsetFromTop,
+      height: boundingRect.height,
+      width: boundingRect.width,
+    });
+  }, [containerRef, registerChild])
+
+  useEffect(() => {
+    measureSelf();
+    window.addEventListener('resize', measureSelf);
+    () => window.removeEventListener('resize', measureSelf);
+  }, [measureSelf]);
 
   const self = children.get(props.id) || {width: 0, sticky: false, stickyOffset: 0};
   const isStuck = self.sticky;
@@ -48,7 +52,7 @@ export function Sticky(props: {
         </div>)}
       </div>
 
-      <div ref={containerRef} className={props.className} style={{visibility: isStuck ? 'hidden' : 'visible'}}>
+      <div ref={containerRef} className={props.className} style={{visibility: isStuck ? 'hidden' : 'visible', opacity: isStuck ? 0 : 1 }}>
         {props.children}
       </div>
     </>

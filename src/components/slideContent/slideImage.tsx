@@ -1,7 +1,6 @@
 "use client"
-import {ImageAnchorPosition, Slide} from "@/types";
+import {Slide} from "@/types";
 import React from "react";
-import {StickyContext} from "@/components/sticky/stickyContext";
 
 const anchorPositions = {
   center: 'center',

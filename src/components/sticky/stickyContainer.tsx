@@ -1,54 +1,40 @@
 "use client"
 import React, {useEffect} from "react";
-import {StickyChild} from "@/components/sticky/types";
-import {calculateChildVisibilityState} from "@/components/sticky/calculateChildVisibilityState";
+import {StickyChild, StickyContainerProps} from "@/components/sticky/types";
+import {calculateChildVisibilityState, getScrollPosition, getViewportBounds, updateChild} from "@/components/sticky/utils";
 import {StickyContext} from "@/components/sticky/stickyContext";
 
-export function StickyContainer(props: any) {
+export function StickyContainer(props: StickyContainerProps) {
   const INITIAL_STICKY_STATE = {
-    absolutePosition: -1,
-    inViewport: false,
-    scrollPosition: -1,
-    containerEnd: -1,
     children: new Map(),
   }
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [state, setState] = React.useState(INITIAL_STICKY_STATE);
 
-  function registerChild(id: string, child: StickyChild) {
+  const registerChild = React.useCallback(function registerChild(id: string, child: StickyChild) {
     setState(state => ({
       ...state,
-      children: state.children.set(id, child)
+      children: updateChild(state.children, id, child)
     }))
-  }
+  }, [setState])
 
-  const measureOffset = React.useCallback(() => {
+  const updateChildPositions = React.useCallback(function updateChildPositions() {
     window.requestAnimationFrame(() => {
-      const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
-      if (containerRef.current) {
-        const viewportHeight = document.documentElement.clientHeight;
-        const viewportBounds = {top: scrollPosition, bottom: viewportHeight + scrollPosition}
-        const containerBoundingRect = containerRef.current.getBoundingClientRect();
-        const offsetFromTop = containerBoundingRect.top + document.documentElement.scrollTop
-        const containerEnd = offsetFromTop + containerBoundingRect.height;
-        const inViewport = viewportBounds.bottom > offsetFromTop && viewportBounds.top < containerEnd;
-
-        setState(state => ({
-          ...state,
-          absolutePosition: offsetFromTop,
-          containerEnd,
-          inViewport,
-          scrollPosition,
-          children: calculateChildVisibilityState(state.children, scrollPosition, containerEnd),
-        }))
-      }
+      if (containerRef.current === null) { return; }
+      setState(state => ({
+        children: calculateChildVisibilityState(containerRef.current, state.children),
+      }))
     })
   }, [containerRef])
 
   useEffect(() => {
-    window.addEventListener('scroll', measureOffset);
-    () => window.removeEventListener('scroll', measureOffset)
-  }, [measureOffset]);
+    window.addEventListener('scroll', updateChildPositions);
+    window.addEventListener('resize', updateChildPositions);
+    () => {
+      window.removeEventListener('scroll', updateChildPositions)
+      window.removeEventListener('resize', updateChildPositions);
+    }
+  }, [updateChildPositions]);
 
   if (props.debug) {
     console.info('StickyContainerState', state)
