@@ -36,6 +36,7 @@ export function Sticky(props: {
     right: 0,
     left: 0,
     width: self.width,
+    visibility: isStuck ? 'visible' : 'hidden' as Property.Visibility
   }
   return (
     <>
