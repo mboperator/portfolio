@@ -1,18 +1,10 @@
 "use client"
-import {Product, Slide} from "@/types";
+import {Product} from "@/types";
 import React from "react";
 import {getProducts} from "@/data";
 import {StickyContainer} from "@/components/sticky";
 import {SplitLayout} from "@/components/splitLayout";
-import {SlideContent} from "@/components/slideContent";
-
-function SlideDescription(props: { slide: Slide }) {
-  return (
-    <p className={`sticky pb-7 px-12 text-lg text-white`}>
-      {props.slide.description}
-    </p>
-  )
-}
+import {SlideContent, SlideDescription} from "@/components/slideContent";
 
 export function Portfolio() {
   const products = getProducts();
@@ -33,7 +25,7 @@ export function ProductShowcase(props: { product: Product }) {
     <StickyContainer className="flex flex-col">
       <SplitLayout
         id="header"
-        menu={
+        sidebar={
           <div className="px-12 py-7" >
             <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
             <h2 className="text-5xl text-white">{props.product.name.toLowerCase()}</h2>
@@ -48,7 +40,7 @@ export function ProductShowcase(props: { product: Product }) {
         <SplitLayout
           key={index}
           id={`${index}`}
-          menu={
+          sidebar={
             <SlideDescription slide={slide} />
           }
           body={

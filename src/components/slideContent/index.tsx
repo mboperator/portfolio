@@ -20,3 +20,4 @@ export function SlideContent(props: { id: string, slide: Slide}) {
     </div>
   )
 }
+export {SlideDescription} from "@/components/slideContent/slideDescription";
