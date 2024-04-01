@@ -56,7 +56,7 @@ export function getProducts(): Product[] {
       description: "The private, encrypted journal for one's walk with God. The purpose of this app was to streamline three things: recording, recalling, and reflecting on life's memories.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'mobx'],
-      coverImage: '/odyssey-journal/landing-page.png',
+      coverImage: '/odyssey-journal/landing-page.webp',
       coverImageSize: 'contain',
       slides: [
         {
