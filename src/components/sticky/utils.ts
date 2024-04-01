@@ -16,27 +16,26 @@ export function calculateChildVisibilityState(parentContainer: HTMLDivElement | 
   if (parentContainer === null) { return children; }
   const scrollPosition = getScrollPosition();
   const containerBoundingRect = parentContainer.getBoundingClientRect();
-  const offsetFromTop = containerBoundingRect.top + document.documentElement.scrollTop
-  const parentContainerEnd = offsetFromTop + containerBoundingRect.height;
-
-  const updatedChildren = new Map();
-  const childrenArr = Array.from(children.values());
   const viewportBounds = getViewportBounds();
-  const totalHeight = childrenArr.reduce((totalHeight, child) => totalHeight += child.height, 0);
-  const isScrollingPastParentContainer = (scrollPosition >= parentContainerEnd - (totalHeight));
-  const parentContainerOvershoot = (scrollPosition - (parentContainerEnd - (totalHeight)));
-  let accumulatedHeights = 0;
 
+  const parentContainerStart = containerBoundingRect.top + document.documentElement.scrollTop
+  const parentContainerEnd = parentContainerStart + containerBoundingRect.height;
+
+  const childrenArr = Array.from(children.values());
+  const totalHeight = childrenArr.reduce((totalHeight, child) => totalHeight += child.height, 0);
+  const heightWithStickyElements = parentContainerEnd - totalHeight
+  const isScrollingPastParentContainer = (scrollPosition >= heightWithStickyElements);
+  const parentContainerOvershoot = (scrollPosition - heightWithStickyElements);
+
+  let accumulatedSiblingHeights = 0;
+  const updatedChildren = new Map();
   children.forEach((child, key) => {
-    const containerEnd = child.absolutePosition + child.height;
-    const inViewport = viewportBounds.bottom > child.absolutePosition && viewportBounds.top < containerEnd;
     updatedChildren.set(key, {
       ...child,
-      inViewport,
-      sticky: viewportBounds.top + accumulatedHeights >= (child.absolutePosition),
-      stickyOffset: isScrollingPastParentContainer ? -parentContainerOvershoot + accumulatedHeights : accumulatedHeights,
+      sticky: viewportBounds.top + accumulatedSiblingHeights >= (child.absolutePosition),
+      stickyOffset: isScrollingPastParentContainer ? -parentContainerOvershoot + accumulatedSiblingHeights : accumulatedSiblingHeights,
     })
-    accumulatedHeights += child.height;
+    accumulatedSiblingHeights += child.height;
   })
 
   return updatedChildren

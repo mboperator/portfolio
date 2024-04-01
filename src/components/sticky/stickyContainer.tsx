@@ -11,10 +11,17 @@ export function StickyContainer(props: StickyContainerProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [state, setState] = React.useState(INITIAL_STICKY_STATE);
 
-  const registerChild = React.useCallback(function registerChild(id: string, child: StickyChild) {
+  const registerChild = React.useCallback(function registerChild(id: string, childNode: HTMLDivElement ) {
+    const childBoundingRect = childNode.getBoundingClientRect();
+    const offsetFromTop = childBoundingRect.top + document.documentElement.scrollTop
+
     setState(state => ({
       ...state,
-      children: updateChild(state.children, id, child)
+      children: updateChild(state.children, id, {
+        absolutePosition: offsetFromTop,
+        height: childBoundingRect.height,
+        width: childBoundingRect.width,
+      })
     }))
   }, [setState])
 
