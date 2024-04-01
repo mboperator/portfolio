@@ -2,9 +2,9 @@
 import {Product} from "@/types";
 import React from "react";
 import {getProducts} from "@/data";
-import {StickyContainer} from "@/components/sticky";
 import {SplitLayout} from "@/components/splitLayout";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
+import {StickyContainer} from "@/components/sticky/stickyContainer";
 
 export function Portfolio() {
   const products = getProducts();
