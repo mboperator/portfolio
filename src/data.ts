@@ -72,11 +72,11 @@ export function getProducts(): Product[] {
       description: "A single platform for assessing a company’s risk, putting together a plan, and inviting them onto construction projects.",
       platform: ['web'],
       technologies: ['react', 'ruby-on-rails', 'mobx'],
-      coverImage: '/prequal/1.png',
+      coverImage: '/prequal/1.webp',
       coverImageSize: 'contain',
       slides: [
-        { image: "/prequal/3.png", imageSize: 'contain', description: 'This product was the first of Procore\'s Preconstruction product line. With a fully configurable, multi page form with complex inputs, multiple personas, and a high number of screens spanning three products - Prequalification was one of the most complex UIs in the entire suite of construction management products at the time.'},
-        { image: '/prequal/2.png', imageSize: 'contain',  description: 'I lead a team of three frontend software engineers and two interns to implement this product from the ground up. This product was implemented using Ruby on Rails, React, React Router, and Mobx state tree.'},
+        { image: "/prequal/3.webp", imageSize: 'contain', description: 'This product was the first of Procore\'s Preconstruction product line. With a fully configurable, multi page form with complex inputs, multiple personas, and a high number of screens spanning three products - Prequalification was one of the most complex UIs in the entire suite of construction management products at the time.'},
+        { image: '/prequal/2.webp', imageSize: 'contain',  description: 'I lead a team of three frontend software engineers and two interns to implement this product from the ground up. This product was implemented using Ruby on Rails, React, React Router, and Mobx state tree.'},
       ],
     },
     {
