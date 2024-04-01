@@ -91,7 +91,7 @@ export const IlaImplementation = React.memo(function IlaImplementation(props: an
       <div className="h-1/2 flex-1 w-full relative">
         <Image
           alt="Ila Lantern in the midst of various parts in the old workshop space"
-          src="/ila-lantern/workshop.png"
+          src="/ila-lantern/workshop.webp"
           fill
           className={`object-cover object-center ease-linear transition-all ${duration}`} style={{ filter: `brightness(0.${currentBrightness})`}}
         />

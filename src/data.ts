@@ -34,11 +34,11 @@ export function getProducts(): Product[] {
       description: "The community app for Redeemer's Church Ventura. This project was started to solve a need for Redeemer\'s Church Ventura during COVID.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'ruby-on-rails', 'mobx', 'nextjs'],
-      coverImage: '/redeemers-church/landing-page.png',
+      coverImage: '/redeemers-church/landing-page.webp',
       coverImageSize: 'contain',
       slides: [
         {
-          image: "/redeemers-church/prayer-requests.png",
+          image: "/redeemers-church/prayer-requests.webp",
           imageSize: 'contain',
           description: 'At the time, prayer requests were being submitted and received by hand. The solution was to digitize the entire process to keep both staff and congregants as safe as possible.'
         },
@@ -46,7 +46,7 @@ export function getProducts(): Product[] {
           component: RedeemersApp,
           description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'
         },
-        { image: "/redeemers-church/admin.png", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system. This app is implemented using Ruby on Rails, React Native, Nextjs, Postgres, and Twilio.'},
+        { image: "/redeemers-church/admin.webp", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system. This app is implemented using Ruby on Rails, React Native, Nextjs, Postgres, and Twilio.'},
       ]
     },
     {
@@ -56,7 +56,7 @@ export function getProducts(): Product[] {
       description: "The private, encrypted journal for one's walk with God. The purpose of this app was to streamline three things: recording, recalling, and reflecting on life's memories.",
       platform: ['mobile', 'web'],
       technologies: ['react-native', 'mobx'],
-      coverImage: '/odyssey-journal/landing-page.png',
+      coverImage: '/odyssey-journal/landing-page.webp',
       coverImageSize: 'contain',
       slides: [
         {
@@ -72,11 +72,11 @@ export function getProducts(): Product[] {
       description: "A single platform for assessing a company’s risk, putting together a plan, and inviting them onto construction projects.",
       platform: ['web'],
       technologies: ['react', 'ruby-on-rails', 'mobx'],
-      coverImage: 'prequal-1.png',
+      coverImage: '/prequal/1.webp',
       coverImageSize: 'contain',
       slides: [
-        { image: "prequal-3.png", imageSize: 'contain', description: 'This product was the first of Procore\'s Preconstruction product line. With a fully configurable, multi page form with complex inputs, multiple personas, and a high number of screens spanning three products - Prequalification was one of the most complex UIs in the entire suite of construction management products at the time.'},
-        { image: 'prequal-2.png', imageSize: 'contain',  description: 'I lead a team of three frontend software engineers and two interns to implement this product from the ground up. This product was implemented using Ruby on Rails, React, React Router, and Mobx state tree.'},
+        { image: "/prequal/3.webp", imageSize: 'contain', description: 'This product was the first of Procore\'s Preconstruction product line. With a fully configurable, multi page form with complex inputs, multiple personas, and a high number of screens spanning three products - Prequalification was one of the most complex UIs in the entire suite of construction management products at the time.'},
+        { image: '/prequal/2.webp', imageSize: 'contain',  description: 'I lead a team of three frontend software engineers and two interns to implement this product from the ground up. This product was implemented using Ruby on Rails, React, React Router, and Mobx state tree.'},
       ],
     },
     {
@@ -86,10 +86,10 @@ export function getProducts(): Product[] {
       description: 'A single platform for creating bid packages, expanding bid coverage, analyzing bids, and converting bids to subcontracts.',
       platform: ['web'],
       technologies: ['react', 'ruby-on-rails', 'mobx'],
-      coverImage: '/bid-mgmt/new-bid-package.jpeg',
+      coverImage: '/bid-mgmt/new-bid-package.webp',
       coverImageSize: 'contain',
       slides: [
-        { image: "/bid-mgmt/before-bid-package.png", imageSize: 'contain', description: 'This product was originally a free offering when clients purchased Procore\'s construction financials product line. My team was responsible for modernizing the UI prior to selling the product as a standalone offering.'},
+        { image: "/bid-mgmt/before-bid-package.webp", imageSize: 'contain', description: 'This product was originally a free offering when clients purchased Procore\'s construction financials product line. My team was responsible for modernizing the UI prior to selling the product as a standalone offering.'},
         { component: BidMgmt, description: 'I was responsible for frontend architecture and implementation. I lead one frontend engineer and one intern. Bid Management is implemented using Ruby on Rails, React, React Router, and redux.'},
         { component: BidMgmt2, description: 'We redesigned the entire product as a single page application in under a year and it brought in $7M in ARR within 7 months. '},
       ]

@@ -16,7 +16,7 @@ const config: Config = {
         '1500': '1500ms'
       },
       backgroundImage: {
-        'sunset': "url('/bg-1.png')"
+        'sunset': "url('/bg-1.webp')"
       }
     }
   },
