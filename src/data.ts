@@ -46,7 +46,7 @@ export function getProducts(): Product[] {
           component: RedeemersApp,
           description: 'Today, congregants use the app to watch sermons, receive announcements, and to view prayer requests.'
         },
-        { image: "/redeemers-church/admin.png", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system. This app is implemented using Ruby on Rails, React Native, Nextjs, Postgres, and Twilio.'},
+        { image: "/redeemers-church/admin.webp", imageSize: 'contain', description: 'I\'m responsible for product discovery, UI/UX design, and for implementing the congregant mobile apps, as well as the staff\'s management system. This app is implemented using Ruby on Rails, React Native, Nextjs, Postgres, and Twilio.'},
       ]
     },
     {
