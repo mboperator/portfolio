@@ -1,16 +1,14 @@
-export type StickyChild = {
+import React from "react";
+
+export type StickyChildPositionState = {
   sticky?: boolean
-  stickyOffset: number;
+  stickyOffset?: number;
   height: number;
-  absolutePosition: number;
-  inViewport?: boolean;
   width: number;
+  absolutePosition: number;
 }
 export type StickyContextState = {
-  absolutePosition: number
-  inViewport: boolean
-  scrollPosition: number
-  containerEnd: number
-  children: Map<string, StickyChild>
+  children: Map<string, StickyChildPositionState>
 }
-export type StickyContextActions = { registerChild: (id: string, child: StickyChild) => void }
+export type StickyContextActions = { registerChild: (id: string, node: HTMLDivElement) => void }
+export type StickyContainerProps = React.HTMLProps<any> & { debug?: boolean }
