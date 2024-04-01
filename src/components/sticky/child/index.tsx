@@ -25,7 +25,7 @@ function getNodeStyle(self: StickyChild | undefined) {
   }
 }
 
-export function Sticky(props: {
+export function StickyChild(props: {
   id: string,
   children: any,
   className?: string,

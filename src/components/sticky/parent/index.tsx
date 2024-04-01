@@ -4,7 +4,7 @@ import {StickyChild, StickyContainerProps} from "../types";
 import {useStickyContainerState} from "./utils";
 import {StickyContext} from "../context";
 
-export function StickyContainer(props: StickyContainerProps) {
+export function StickyParent(props: StickyContainerProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const { registerChild, updateChildPositions, children} = useStickyContainerState(containerRef);
 

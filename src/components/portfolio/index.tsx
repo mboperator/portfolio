@@ -4,7 +4,7 @@ import React from "react";
 import {getProducts} from "@/data";
 import {SplitLayout} from "@/components/splitLayout";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
-import {StickyContainer} from "@/components/sticky";
+import {StickyParent} from "@/components/sticky";
 
 export function Portfolio() {
   const products = getProducts();
@@ -22,7 +22,7 @@ export function ProductShowcase(props: { product: Product }) {
   const { slides = [] } = props.product
 
   return (
-    <StickyContainer className="flex flex-col">
+    <StickyParent className="flex flex-col">
       <SplitLayout
         id="header"
         sidebar={
@@ -48,6 +48,6 @@ export function ProductShowcase(props: { product: Product }) {
           }
         />
       ))}
-    </StickyContainer>
+    </StickyParent>
   );
 }

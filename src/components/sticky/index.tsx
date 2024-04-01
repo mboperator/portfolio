@@ -1,3 +1,3 @@
-export { Sticky } from './child'
-export { StickyContainer } from './parent'
+export { StickyChild } from './child'
+export { StickyParent } from './parent'
 export { StickyContext } from './context'
