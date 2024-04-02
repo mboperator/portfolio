@@ -11,6 +11,7 @@ export function getProducts(): Product[] {
     {
       slug: 'ila-lantern',
       organization: 'Totum Technologies',
+      url: 'https://ila.lighting',
       name: 'Ila Lantern',
       description: 'Ila is the lantern built for moments of connection. It has been in active development since 2020.',
       platform: ['mobile'],
@@ -30,6 +31,7 @@ export function getProducts(): Product[] {
     {
       slug: 'redeemers-church-ventura',
       organization: "Redeemer's Church Ventura",
+      url: 'https://redeemersventura.org',
       name: "Redeemer's Community",
       description: "The community app for Redeemer's Church Ventura. This project was started to solve a need for Redeemer\'s Church Ventura during COVID.",
       platform: ['mobile', 'web'],
@@ -52,6 +54,7 @@ export function getProducts(): Product[] {
     {
       slug: 'odyssey-journal',
       organization: 'Totum Technologies',
+      url: 'https://odyssey.af',
       name: 'Odyssey Journal',
       description: "The private, encrypted journal for one's walk with God. The purpose of this app was to streamline three things: recording, recalling, and reflecting on life's memories.",
       platform: ['mobile', 'web'],
@@ -68,6 +71,7 @@ export function getProducts(): Product[] {
     {
       slug: 'prequalification',
       organization: 'Procore Technologies',
+      url: 'https://www.procore.com/prequalification',
       name: 'Prequalification',
       description: "A single platform for assessing a company’s risk, putting together a plan, and inviting them onto construction projects.",
       platform: ['web'],
@@ -82,6 +86,7 @@ export function getProducts(): Product[] {
     {
       slug: 'bid-management',
       organization: 'Procore Technologies',
+      url: 'https://www.procore.com/bid-management',
       name: 'Bid Management',
       description: 'A single platform for creating bid packages, expanding bid coverage, analyzing bids, and converting bids to subcontracts.',
       platform: ['web'],
