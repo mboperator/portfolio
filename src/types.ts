@@ -21,6 +21,7 @@ export type Slide = {
 export type Product = {
   slug: Key
   organization: string
+  url?: string
   name: string
   description: string
   coverImage: string

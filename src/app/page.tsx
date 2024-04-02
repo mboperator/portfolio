@@ -19,7 +19,7 @@ function HeroSection() {
 function Contact() {
   return (
     <section className="h-screen flex flex-col p-12 justify-center items-center">
-      <a href="mailto:hello@marcusbernal.es">
+      <a href="mailto:marcusbernales@gmail.com">
         <h1 className="text-white text-7xl underline">email me</h1>
       </a>
     </section>
