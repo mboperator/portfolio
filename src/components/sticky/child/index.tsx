@@ -13,7 +13,8 @@ function getStickyStyle(self: StickyChildPositionState| undefined) {
     right: 0,
     left: 0,
     width: self.width,
-    visibility: self.sticky ? 'visible' : 'hidden' as Property.Visibility
+    visibility: self.sticky ? 'visible' : 'hidden' as Property.Visibility,
+    backgroundColor: 'black'
   }
 }
 
