@@ -16,8 +16,9 @@
   }
 }
 
-body {
+html{scroll-behavior:smooth}
 
+body {
 }
 
 @layer utilities {

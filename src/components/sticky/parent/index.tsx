@@ -16,7 +16,7 @@ export function StickyParent(props: StickyContainerProps) {
       window.removeEventListener('scroll', updateChildPositions)
       window.removeEventListener('resize', updateChildPositions);
     }
-  }, [updateChildPositions]);
+  }, [updateChildPositions, props.enabled]);
 
   if (props.debug) {
     console.info('StickyContainerState')
@@ -24,7 +24,7 @@ export function StickyParent(props: StickyContainerProps) {
   }
 
   return (
-    <StickyContext.Provider value={{ children, registerChild }}>
+    <StickyContext.Provider value={{ children, registerChild, enabled: !!props.enabled }}>
       <div ref={containerRef} {...props} />
     </StickyContext.Provider>
   )

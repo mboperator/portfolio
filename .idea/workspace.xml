@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="953dc76a-76ea-44bc-914d-dcffd0e2e333" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/odysseyApp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/odysseyApp.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/slideContent/slideDescription.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slideContent/slideDescription.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/slideContent/slideImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slideContent/slideImage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/splitLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/splitLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sticky/child/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sticky/child/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sticky/parent/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sticky/parent/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sticky/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sticky/types.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="uayh4q1e" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2eBubimUKJ3x0jQVgJ3mbWlPIDz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "feature/mobile-friendly",
+    "last_opened_file_path": "/Users/marcus/Code/portfolio/src/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.jest.jest_package": "/Users/marcus/Code/portfolio/node_modules/jest",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Users/marcus/Code/portfolio/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="$PROJECT_DIR$/src/components/navigation.tsx" />
+      <recent name="$PROJECT_DIR$/src/components/sticky/parent/utils.ts" />
+      <recent name="$PROJECT_DIR$/src/components/sticky/child/useStickyChildReporting.ts" />
+      <recent name="$PROJECT_DIR$/src/components/sticky/utils.ts" />
+      <recent name="$PROJECT_DIR$/src/components/sticky/types.ts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/components/sticky" />
+      <recent name="$PROJECT_DIR$/src/components/portfolio" />
+      <recent name="$PROJECT_DIR$/public/ila-lantern" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Jest.Home.renders a heading">
+    <configuration name="Home" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/__tests__/index.test.js" />
+      <test-names>
+        <test-name value="Home" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Home.renders a heading (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/__tests__/index.test.js" />
+      <test-names>
+        <test-name value="Home" />
+        <test-name value="renders a heading" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Home.renders a heading" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/index.test.js" />
+      <test-names>
+        <test-name value="Home" />
+        <test-name value="renders a heading" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Home.renders a heading" />
+        <item itemvalue="Jest.Home.renders a heading (1)" />
+        <item itemvalue="Jest.Home" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="953dc76a-76ea-44bc-914d-dcffd0e2e333" name="Changes" comment="" />
+      <created>1711390366155</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711390366155</updated>
+      <workItem from="1711390367602" duration="38438000" />
+      <workItem from="1711530343107" duration="24502000" />
+      <workItem from="1711734797351" duration="39113000" />
+      <workItem from="1712072144391" duration="4166000" />
+      <workItem from="1712181962589" duration="1959000" />
+      <workItem from="1713989868131" duration="1239000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
