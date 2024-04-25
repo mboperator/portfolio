@@ -8,6 +8,8 @@ import {OdysseyApp} from "@/components/portfolio/odysseyApp";
 import {RedeemersApp} from "@/components/portfolio/redeemersApp";
 import {BidManagement} from "@/components/portfolio/BidManagement";
 import {IlaLantern} from "@/components/portfolio/IlaLantern";
+import {Simulate} from "react-dom/test-utils";
+import input = Simulate.input;
 
 type Message = {
   type: 'text' | 'tool'
@@ -34,7 +36,7 @@ function ChatResponse(props: { showProject: any, message: Message }) {
     return (
       <div
         className={`my-3 text-white text-sm font-mono flex ${props.message.author === "assistant" ? "justify-start" : "justify-end"}`}>
-        <button onMouseDown={showProject} className="cursor-pointer rounded-3xl p-3 bg-amber-400 bg-opacity-70 text-xs">
+        <button onMouseDown={showProject} className="cursor-pointer rounded-3xl p-3 border-2 border-orange-300 hover:bg-orange-300 transition-colors bg-opacity-70 text-xs">
           {`Click here to show ${props.message.input.project}`}
         </button>
       </div>
@@ -80,6 +82,7 @@ function MeemoChat(props) {
       console.info('Claudes Response', response)
       setMessages(state => state.concat(response));
       setLoading(false);
+      inputRef.current.focus();
     }
   }, [inputRef.current, messages, chatboxRef, scrollChatbox]);
 
@@ -117,18 +120,18 @@ function MeemoChat(props) {
               <ChatResponse key={i} message={message} showProject={props.showProject}/>
             ))}
           </div>
-          <div className="mt-3 h-12 bg-black rounded-2xl bg-opacity-40 drop-shadow-2xl">
+          <div className={`mt-3 h-12 bg-black rounded-2xl bg-opacity-40 drop-shadow-2xl ${loading && 'bg-transparent'} transition-colors duration-300`}>
             <div className="flex flex-row h-full w-full items-center bg-transparent rounded-2xl">
               <input
                 ref={inputRef}
                 disabled={loading}
-                className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0"
+                className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0 disabled:placeholder:opacity-50 disabled:cursor-not-allowed disabled:placeholder:opacity-0 transition-colors duration-300"
                 autoFocus
                 placeholder="ask meemo a question"
                 onKeyDown={handleEnterKey}
               />
-              <button className="rounded-full h-12 w-12 flex flex-col items-center justify-center pr-2" onMouseDown={handleNewMessage}>
-                <Send className="text-white" size={20} />
+              <button className="text-white hover:text-orange-300 transition-colors duration-300 rounded-full h-12 w-12 flex flex-col items-center justify-center pr-2" onMouseDown={handleNewMessage}>
+                <Send className="" size={20} />
               </button>
             </div>
           </div>
