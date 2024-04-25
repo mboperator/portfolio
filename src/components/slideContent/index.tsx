@@ -9,10 +9,10 @@ export function SlideContent(props: { id: string, slide: Slide}) {
   const self = children.get(props.id);
 
   if (props.slide.image) {
-    return <SlideImage id={props.id} slide={props.slide} active={Boolean(self?.sticky)} />
+    return <SlideImage id={props.id} slide={props.slide} active={Boolean(props.active || self?.sticky)} />
   } else if (props.slide.component) {
     const Component = props.slide.component;
-    return <Component id={props.id} slide={props.slide} active={Boolean(self?.sticky)} />
+    return <Component id={props.id} slide={props.slide} active={Boolean(props.active || self?.sticky)} />
   }
   return (
     <div>

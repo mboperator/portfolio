@@ -24,7 +24,7 @@ export function ProductShowcase(props: { product: Product }) {
           </div>
         }
         body={
-          <SlideContent id="header" slide={{
+          <SlideContent id="header" active slide={{
             image: props.product.coverImage,
             imageSize: props.product.coverImageSize,
             imageAnchor: props.product.coverImageAnchor
