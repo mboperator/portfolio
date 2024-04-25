@@ -4,7 +4,7 @@ import React from "react";
 
 export function SplitLayout(props: {  id: string, sidebar: React.JSX.Element, body: React.JSX.Element }) {
   return (
-    <div className="flex flex-col min-h-lvh md:flex-row">
+    <div className="flex flex-row min-h-lvh">
       <div className="w-full md:w-1/4 bg-gradient-to-r from-black">
         <StickyChild id={props.id} debug={false}>
           {props.sidebar}

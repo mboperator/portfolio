@@ -5,6 +5,7 @@ export type StickyChildPositionState = {
   stickyOffset?: number
   height: number
   width: number
+  left: number
   absolutePosition: number
 }
 export type StickyContextState = {

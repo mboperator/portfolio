@@ -5,34 +5,23 @@ import {StickyChildPositionState} from "../types";
 import { useStickyChildReporting } from "./useStickyChildReporting";
 import {StickyContext} from "@/components/sticky";
 
-function getStickyStyle(self: StickyChildPositionState| undefined, enabled: boolean) {
+function getStickyStyle(self: StickyChildPositionState| undefined) {
   if (!self) { return {} }
-  else if (!enabled) {
-    return {
-      position: 'fixed' as Property.Position,
-      top: -9999,
-      transform: '',
-      right: 0,
-      left: 0,
-      width: self.width,
-      visibility: 'hidden' as Property.Visibility,
-      backgroundColor: 'black'
-    }
-  }
+
   return {
     position: 'fixed' as Property.Position,
     top: self.sticky ? 0 : -9999,
     transform: self.sticky ? `translateY(${self.stickyOffset}px)` : '',
     right: 0,
-    left: 0,
+    left: self.left || 0,
     width: self.width,
     visibility: self.sticky ? 'visible' : 'hidden' as Property.Visibility,
     backgroundColor: 'black'
   }
 }
 
-function getNodeStyle(self: StickyChildPositionState | undefined, enabled: boolean) {
-  if (self?.sticky && enabled) {
+function getNodeStyle(self: StickyChildPositionState | undefined) {
+  if (self?.sticky) {
     return { visibility: 'hidden' as Property.Visibility, opacity: 0 }
   } else {
     return { visibility: 'visible' as Property.Visibility, opacity: 1 }
@@ -48,8 +37,8 @@ export function StickyChild(props: {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const { enabled } = React.useContext(StickyContext);
   const self = useStickyChildReporting(props.id, containerRef);
-  const stickyNodeStyle = getStickyStyle(self, enabled);
-  const normalNodeStyle = getNodeStyle(self, enabled);
+  const stickyNodeStyle = getStickyStyle(self);
+  const normalNodeStyle = getNodeStyle(self);
 
   return (
     <>

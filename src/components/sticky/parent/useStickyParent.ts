@@ -55,6 +55,7 @@ export function useStickyParent(containerRef: React.RefObject<HTMLDivElement>) {
         absolutePosition: offsetFromTop,
         height: childBoundingRect.height,
         width: childBoundingRect.width,
+        left: childBoundingRect.left,
       })
     }))
   }, [setState])

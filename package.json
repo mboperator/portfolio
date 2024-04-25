@@ -10,10 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.7",
     "lucide-react": "^0.364.0",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-markdown": "^9.0.1",
     "victory": "^37.0.1"
   },
   "devDependencies": {
