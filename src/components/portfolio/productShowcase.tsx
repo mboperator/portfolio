@@ -35,12 +35,11 @@ export function ProduceShowcaseMobile(props: { product: Product }) {
         />
       </StickyParent>
       {slides.map((slide, index) => (
-        <StickyParent className="flex flex-col flex-1">
+        <StickyParent key={index} className="flex flex-col flex-1">
           <SplitLayout
-            key={index}
             sidebar={
               <StickyChild id={`${index}`}>
-                <SlideDescription id={`${index}`} slide={slide} debug={false}/>
+                <SlideDescription id={`${index}`} slide={slide} />
               </StickyChild>
             }
             body={
