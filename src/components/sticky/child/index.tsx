@@ -16,7 +16,6 @@ function getStickyStyle(self: StickyChildPositionState| undefined) {
     left: self.left || 0,
     width: self.width,
     visibility: self.sticky ? 'visible' : 'hidden' as Property.Visibility,
-    backgroundColor: 'black',
     zIndex: 10,
   }
 }
@@ -42,7 +41,7 @@ export function StickyChild(props: {
 
   return (
     <>
-      <div className={`${props.className} relative`} style={stickyNodeStyle}>
+      <div className={`${props.className} relative backdrop-blur-sm bg-black bg-opacity-40`} style={stickyNodeStyle}>
         {props.children}
 
         {props.debug && (<div className="absolute right-0 top-20 bg-amber-300">

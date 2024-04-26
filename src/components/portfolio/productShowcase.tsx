@@ -5,8 +5,12 @@ import {SlideContent, SlideDescription} from "@/components/slideContent";
 import React from "react";
 import {SquareArrowOutUpRight} from "lucide-react";
 import useWindowDimensions from "@/utils/useWindowDimensions";
+import {withBreakpoints} from "@/utils/withBreakpoints";
 
 export function ProduceShowcaseMobile(props: { product: Product }) {
+  if (props.product === undefined) {
+    return null;
+  }
   const {slides = []} = props.product
   return (
     <>
@@ -14,7 +18,7 @@ export function ProduceShowcaseMobile(props: { product: Product }) {
         <SplitLayout
           sidebar={
             <StickyChild id={"header"}>
-              <div className="px-12 py-7 ml-0 bg-black">
+              <div className="px-3 py-3 ml-0 backdrop-blur-lg bg-black bg-opacity-70">
                 <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
                 <a href={props.product.url} target="_blank" className="flex flex-row">
                   <h2
@@ -53,6 +57,9 @@ export function ProduceShowcaseMobile(props: { product: Product }) {
 }
 
 export function ProduceShowcaseWeb(props: { product: Product }) {
+  if (props.product === undefined) {
+    return null;
+  }
   const {slides = []} = props.product
   return (
     <StickyParent className="flex flex-col flex-1">
@@ -96,15 +103,7 @@ export function ProduceShowcaseWeb(props: { product: Product }) {
   );
 }
 
-export function ProductShowcase(props: { product: Product | undefined }) {
-  const { width } = useWindowDimensions();
-  if (props.product === undefined) {
-    return null;
-  }
-
-  if (width <= 1024) {
-    return (<ProduceShowcaseMobile product={props.product}/>);
-  } else {
-    return (<ProduceShowcaseWeb product={props.product}/> );
-  }
-}
+export const ProductShowcase = withBreakpoints({
+  md: ProduceShowcaseMobile,
+  default: ProduceShowcaseWeb,
+})

@@ -22,8 +22,8 @@ const data = [
 export const IlaSpecs = React.memo(function IlaSpecs(props: any) {
   return (
     <div className={`flex flex-col h-full w-full p-7 ${props.active ? 'opacity-100' : 'opacity-50'} ${props.active ? 'blur-0' : 'blur-sm'} transition-all duration-700`}>
-      <div className="h-2/5 mb-7 flex flex-row justify-evenly">
-        <div className="w-1/2 flex flex-col items-center">
+      <div className="h-2/5 mb-7 flex flex-col md:flex-row justify-evenly">
+        <div className="w-full md:w-1/2 flex flex-col items-center">
           <h1 className="mt-3 text-white">Battery Life at Max Brightness</h1>
 
           <VictoryChart
@@ -50,7 +50,7 @@ export const IlaSpecs = React.memo(function IlaSpecs(props: any) {
             <VictoryAxis style={{ tickLabels: { fill: '#fefefe', fontSize: 17 }}}/>
           </VictoryChart>
           </div>
-        <div className="w-1/2 flex flex-col items-center">
+        <div className="w-full md:w-1/2 flex flex-col items-center">
           <h1 className="mt-3 text-white">Maximum Brightness (lumens)</h1>
           <VictoryChart
             name="Maximum Brightness (lumens)"

@@ -13,7 +13,7 @@ export function SlideDescription(props: { id: string, slide: Slide }) {
     classes = "opacity-0"
   }
   return (
-    <p className={`transition-opacity duration-500 py-7 px-12 text-lg text-white ${classes}`}>
+    <p className={`transition-opacity duration-500 py-3 px-3 md:py-7 md:px-12 text-lg text-white ${classes}`}>
       {props.slide.description}
     </p>
   )
