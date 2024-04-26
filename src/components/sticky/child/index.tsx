@@ -35,7 +35,6 @@ export function StickyChild(props: {
   debug: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const { enabled } = React.useContext(StickyContext);
   const self = useStickyChildReporting(props.id, containerRef);
   const stickyNodeStyle = getStickyStyle(self);
   const normalNodeStyle = getNodeStyle(self);

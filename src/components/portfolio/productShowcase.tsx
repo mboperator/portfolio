@@ -5,9 +5,11 @@ import {SquareArrowOutUpRight} from "lucide-react";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
 import React from "react";
 
-export function ProductShowcase(props: { product: Product }) {
+export function ProductShowcase(props: { product: Product | undefined }) {
+  if (props.product === undefined) {
+    return null;
+  }
   const {slides = []} = props.product
-
   return (
     <StickyParent className="flex flex-col flex-1">
       <SplitLayout

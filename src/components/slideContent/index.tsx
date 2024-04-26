@@ -4,7 +4,7 @@ import {Slide} from "@/types";
 import React from "react";
 import {StickyContext} from "@/components/sticky";
 
-export function SlideContent(props: { id: string, slide: Slide}) {
+export function SlideContent(props: { id: string, slide: Slide, active?: boolean}) {
   const {children} = React.useContext(StickyContext);
   const self = children.get(props.id);
 

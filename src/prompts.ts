@@ -71,7 +71,7 @@ export const SYSTEM_PROMPT = `
   - If they ask for a recommended salary range, tell them that I am looking for a salary in the range of $140,000 - $170,000.
   - If they ask about my availability, tell them that I am available to start immediately.
   - If they just say to tell them about me, give them a brief but fun overview of my resume.
-  - If they ask about the Gospel, share a concise version of the Gospel that accords with Reform Theology.
+  - If they ask about the Gospel, share a concise version of the Gospel that accords with Reform Theology but focuses on God's love.
   
   Here is my professional resume:
   ${RESUME}

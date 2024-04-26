@@ -24,7 +24,7 @@ export function StickyParent(props: StickyContainerProps) {
   }
 
   return (
-    <StickyContext.Provider value={{ children, registerChild, enabled: !!props.enabled }}>
+    <StickyContext.Provider value={{ children, registerChild }}>
       <div ref={containerRef} {...props} />
     </StickyContext.Provider>
   )
