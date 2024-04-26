@@ -1,13 +1,12 @@
 "use client";
 
-import React, {SyntheticEvent} from "react";
-import {OdysseyApp} from "@/components/portfolio/odysseyApp";
-import {RedeemersApp} from "@/components/portfolio/redeemersApp";
+import React from "react";
 import {BidManagement} from "@/components/portfolio/BidManagement";
 import {IlaLantern} from "@/components/portfolio/IlaLantern";
 import {MeemoChat} from "@/components/meemo";
 import {OdysseyJournal} from "@/components/portfolio/OdysseyJournal";
 import {RedeemersChurch} from "@/components/portfolio/RedeemersChurch";
+import {useVisibilityKeyboardShortcut} from "@/utils/useVisibilityKeyboardShortcut";
 
 function Backdrop() {
   return (
@@ -38,7 +37,7 @@ const PROJECTS:{ [key: string]: any } = {
 
 function HeroSection() {
   const [activeComponent, setActiveComponent] = React.useState(<Backdrop />);
-  const [meemoIsMinimized, setMeemoVisibility] = React.useState(false);
+  const { isMinimized, setVisibility } = useVisibilityKeyboardShortcut();
 
   const showProject = React.useCallback(function showProject(projectToShow: string): void {
     const project = PROJECTS[projectToShow];
@@ -46,41 +45,19 @@ function HeroSection() {
     if (project) {
       setActiveComponent(project.component);
       setTimeout(() => {
-        setMeemoVisibility(true);
+        setVisibility(true);
       }, 10);
     }
-  }, [PROJECTS, setActiveComponent, setMeemoVisibility])
-
-  const toggleMeemoVisibility = React.useCallback(function toggleMeemoVisibility() {
-      setMeemoVisibility(!meemoIsMinimized);
-
-  }, [setMeemoVisibility, meemoIsMinimized]);
-
-  React.useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === '/') {
-        toggleMeemoVisibility();
-      } else if (event.key === "Escape") {
-        setMeemoVisibility(true);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [toggleMeemoVisibility, meemoIsMinimized, setMeemoVisibility]);
+  }, [PROJECTS, setActiveComponent, setVisibility])
 
 
   return (
     <section
       className="min-h-screen w-full relative flex flex-row">
       <MeemoChat
-        minimized={meemoIsMinimized}
+        minimized={isMinimized}
         showProject={showProject}
-        toggleVisibility={() => setMeemoVisibility(visibility => !visibility)}
+        toggleVisibility={() => setVisibility(visibility => !visibility)}
       />
       {activeComponent}
     </section>
