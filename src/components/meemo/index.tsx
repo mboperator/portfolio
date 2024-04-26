@@ -1,4 +1,4 @@
-import React from "react";
+import React, {HTMLProps, KeyboardEventHandler} from "react";
 import {SYSTEM_PROMPT} from "@/prompts";
 import {BotMessageSquare, Send} from "lucide-react";
 import Markdown from "react-markdown";
@@ -6,23 +6,22 @@ import { useChat } from 'ai/react';
 
 
 type Message = {
-  type: 'text' | 'tool'
-  body: string
+  content: string
   role: string
   input?: any
 }
 
 const COMPONENTS = {
-  ul: props => <ul className="list-none" {...props} />,
-  li: props => <li className="my-2" {...props} />,
-  p: props => <p className="mb-2" {...props} />
+  ul: (props: HTMLProps<HTMLUListElement>) => <ul className="list-none" {...props} />,
+  li: (props: HTMLProps<HTMLLIElement>) => <li className="my-2" {...props} />,
+  p: (props: HTMLProps<HTMLParagraphElement>) => <p className="mb-2" {...props} />
 }
 
-function messageIsFunctionCall(message) {
+function messageIsFunctionCall(message: Message) {
   return message.content.includes('{')
 }
 
-function FunctionCall(props: { message: Message }) {
+function FunctionCall(props: { message: Message, showProject: (project: string) => void }) {
 
   const showProject = React.useCallback(() => {
     if (messageIsFunctionCall(props.message)) {
@@ -62,7 +61,6 @@ function FunctionCall(props: { message: Message }) {
       </div>
     )
   } catch(e) {
-    console.info(e.message);
     return (
       <div>Loading...</div>
     )
@@ -86,14 +84,14 @@ function ChatResponse(props: { showProject: any, message: Message }) {
 }
 
 
-export function MeemoChat(props) {
+export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => void, showProject: (project: string) => void }) {
   const [loading, setLoading] = React.useState(false);
   const backdropRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const chatboxRef = React.useRef<HTMLInputElement>(null);
   const {messages, input, handleInputChange, handleSubmit} = useChat({
     initialMessages: [
-      {content: SYSTEM_PROMPT, role: 'system'}
+      { id: '0', content: SYSTEM_PROMPT, role: 'system' }
     ],
     onResponse: () => setLoading(true),
     onFinish: () => setLoading(false),
@@ -120,23 +118,25 @@ export function MeemoChat(props) {
     }, 50);
   }, [inputRef, loading, props.minimized])
 
-  function handleMinimize(e) {
+  function handleMinimize(e: React.MouseEvent<HTMLDivElement>) {
     if (e.target !== backdropRef.current) {
       return;
     }
-    props.toggleVisibility(true);
+    props.toggleVisibility();
   }
 
-  const handleSendMessage = React.useCallback(function handleSendMessage(e) {
+  const handleSendMessage = React.useCallback(function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     handleSubmit(e);
-    inputRef.current.value = '';
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   }, [inputRef, handleSubmit])
 
-  const handleIgnoredChars = React.useCallback(function handleIgnoredChars(e) {
-    if (e.key === '/') {
-      e.preventDefault();
+  const handleIgnoredChars = React.useCallback(function handleIgnoredChars(event: KeyboardEvent): any {
+    if (event.key === '/') {
+      event.preventDefault();
     }
-  }, []);
+  } as unknown as KeyboardEventHandler<HTMLInputElement>, []) ;
 
   return (
     <>
@@ -144,6 +144,24 @@ export function MeemoChat(props) {
            className={`z-50 bottom-0 fixed top-0 left-0 right-0 flex justify-center items-center h-full w-full backdrop-blur-sm bg-opacity-20 bg-white ${props.minimized ? 'invisible opacity-0' : 'visible opacity-100'} transition-all duration-300`}>
         <div className={`w-1/2 h-1/2 flex flex-col px-3 pt-3 py-3 rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-7'} transition-all duration-300`}>
           <div ref={chatboxRef} className="flex-1 bg-black rounded-2xl bg-opacity-40  p-5 flex flex-col overflow-scroll">
+            <div
+              className={`my-1 text-white text-lg flex justify-start`}>
+              <div>
+                <Markdown components={COMPONENTS}>{"👋 Hey, I'm Marcus,"}</Markdown>
+              </div>
+            </div>
+            <div
+              className={`my-1 text-white text-lg flex justify-start`}>
+              <div>
+                <Markdown components={COMPONENTS}>{"Welcome to my portfolio site."}</Markdown>
+              </div>
+            </div>
+            <div
+              className={`my-1 text-white text-lg flex justify-start`}>
+              <div>
+                <Markdown components={COMPONENTS}>{"I'm not here, but my assistant, Meemo is. Feel free to ask it anything."}</Markdown>
+              </div>
+            </div>
             {messages.filter(a => a.role !== 'system').map((message, i) => (
               <ChatResponse key={i} message={message} showProject={props.showProject}/>
             ))}
@@ -171,7 +189,7 @@ export function MeemoChat(props) {
       </div>
       <button
         className="z-50 fixed bottom-7 right-7 p-4 h-20 w-20 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white "
-        onClick={() => props.toggleVisibility(false)}
+        onClick={() => props.toggleVisibility()}
       >
         <BotMessageSquare className="text-orange-300" size={120}/>
       </button>

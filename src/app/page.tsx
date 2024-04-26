@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import {OdysseyApp} from "@/components/portfolio/odysseyApp";
 import {RedeemersApp} from "@/components/portfolio/redeemersApp";
 import {BidManagement} from "@/components/portfolio/BidManagement";
@@ -17,7 +17,7 @@ function Backdrop() {
   )
 }
 
-const PROJECTS = {
+const PROJECTS:{ [key: string]: any } = {
   'Ila Lantern': {
     description: `A page that contains graphs representing Ila's performance numbers.`,
     component: <IlaLantern />
@@ -36,11 +36,11 @@ const PROJECTS = {
   }
 }
 
-function HeroSection(props) {
+function HeroSection() {
   const [activeComponent, setActiveComponent] = React.useState(<Backdrop />);
   const [meemoIsMinimized, setMeemoVisibility] = React.useState(false);
 
-  const showProject = React.useCallback(function showProject(projectToShow: string) {
+  const showProject = React.useCallback(function showProject(projectToShow: string): void {
     const project = PROJECTS[projectToShow];
     console.info('showProject', projectToShow, project);
     if (project) {
@@ -57,7 +57,7 @@ function HeroSection(props) {
   }, [setMeemoVisibility, meemoIsMinimized]);
 
   React.useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === '/') {
         toggleMeemoVisibility();
       } else if (event.key === "Escape") {
