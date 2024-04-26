@@ -16,15 +16,16 @@ function getStickyStyle(self: StickyChildPositionState| undefined) {
     left: self.left || 0,
     width: self.width,
     visibility: self.sticky ? 'visible' : 'hidden' as Property.Visibility,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    zIndex: 10,
   }
 }
 
 function getNodeStyle(self: StickyChildPositionState | undefined) {
   if (self?.sticky) {
-    return { visibility: 'hidden' as Property.Visibility, opacity: 0 }
+    return "invisible opacity-0"
   } else {
-    return { visibility: 'visible' as Property.Visibility, opacity: 1 }
+    return "visible opacity-100"
   }
 }
 
@@ -32,7 +33,7 @@ export function StickyChild(props: {
   id: string,
   children: any,
   className?: string,
-  debug: boolean
+  debug?: boolean
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const self = useStickyChildReporting(props.id, containerRef);
@@ -49,7 +50,7 @@ export function StickyChild(props: {
         </div>)}
       </div>
 
-      <div ref={containerRef} className={props.className} style={normalNodeStyle}>
+      <div ref={containerRef} className={`${props.className} ${normalNodeStyle}`}>
         {props.children}
       </div>
     </>

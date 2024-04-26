@@ -1,29 +1,75 @@
 import {Product} from "@/types";
-import {StickyParent} from "@/components/sticky";
+import {StickyChild, StickyParent} from "@/components/sticky";
 import {SplitLayout} from "@/components/splitLayout";
-import {SquareArrowOutUpRight} from "lucide-react";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
 import React from "react";
+import {SquareArrowOutUpRight} from "lucide-react";
+import useWindowDimensions from "@/utils/useWindowDimensions";
 
-export function ProductShowcase(props: { product: Product | undefined }) {
-  if (props.product === undefined) {
-    return null;
-  }
+export function ProduceShowcaseMobile(props: { product: Product }) {
+  const {slides = []} = props.product
+  return (
+    <>
+      <StickyParent className="flex flex-col flex-1">
+        <SplitLayout
+          sidebar={
+            <StickyChild id={"header"}>
+              <div className="px-12 py-7 ml-0 bg-black">
+                <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
+                <a href={props.product.url} target="_blank" className="flex flex-row">
+                  <h2
+                    className="text-5xl text-white no-underline hover:underline underline-offset-8 transition-all duration-300">{props.product.name.toLowerCase()}</h2>
+                  <SquareArrowOutUpRight color="white" className="p-1" size={30}/>
+                </a>
+                <p className="text-lg pt-3 pb-0 text-white">{props.product.description}</p>
+              </div>
+            </StickyChild>
+          }
+          body={
+            <SlideContent id="header" active slide={{
+              image: props.product.coverImage,
+              imageSize: props.product.coverImageSize,
+              imageAnchor: props.product.coverImageAnchor
+            }}/>
+          }
+        />
+      </StickyParent>
+      {slides.map((slide, index) => (
+        <StickyParent className="flex flex-col flex-1">
+          <SplitLayout
+            key={index}
+            sidebar={
+              <StickyChild id={`${index}`}>
+                <SlideDescription id={`${index}`} slide={slide} debug={false}/>
+              </StickyChild>
+            }
+            body={
+              <SlideContent id={`${index}`} slide={slide}/>
+            }
+          />
+        </StickyParent>
+      ))}
+    </>
+  )
+}
+
+export function ProduceShowcaseWeb(props: { product: Product }) {
   const {slides = []} = props.product
   return (
     <StickyParent className="flex flex-col flex-1">
       <SplitLayout
-        id="header"
         sidebar={
-          <div className="px-12 py-7 ml-0 bg-black">
-            <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
-            <a href={props.product.url} target="_blank" className="flex flex-row">
-              <h2
-                className="text-5xl text-white no-underline hover:underline underline-offset-8 transition-all duration-300">{props.product.name.toLowerCase()}</h2>
-              <SquareArrowOutUpRight color="white" className="p-1" size={30}/>
-            </a>
-            <p className="text-lg pt-3 pb-7 text-white">{props.product.description}</p>
-          </div>
+          <StickyChild id={"header"}>
+            <div className="px-12 py-7 ml-0 bg-black">
+              <h4 className="text-gray-100 mb-3">{props.product.organization.toLowerCase()}</h4>
+              <a href={props.product.url} target="_blank" className="flex flex-row">
+                <h2
+                  className="text-5xl text-white no-underline hover:underline underline-offset-8 transition-all duration-300">{props.product.name.toLowerCase()}</h2>
+                <SquareArrowOutUpRight color="white" className="p-1" size={30}/>
+              </a>
+              <p className="text-lg pt-3 pb-0 text-white">{props.product.description}</p>
+            </div>
+          </StickyChild>
         }
         body={
           <SlideContent id="header" active slide={{
@@ -33,12 +79,14 @@ export function ProductShowcase(props: { product: Product | undefined }) {
           }}/>
         }
       />
+
       {slides.map((slide, index) => (
         <SplitLayout
           key={index}
-          id={`${index}`}
           sidebar={
-            <SlideDescription id={`${index}`} slide={slide}/>
+            <StickyChild id={`${index}`}>
+              <SlideDescription id={`${index}`} slide={slide}/>
+            </StickyChild>
           }
           body={
             <SlideContent id={`${index}`} slide={slide}/>
@@ -47,4 +95,17 @@ export function ProductShowcase(props: { product: Product | undefined }) {
       ))}
     </StickyParent>
   );
+}
+
+export function ProductShowcase(props: { product: Product | undefined }) {
+  const { width } = useWindowDimensions();
+  if (props.product === undefined) {
+    return null;
+  }
+
+  if (width <= 1024) {
+    return (<ProduceShowcaseMobile product={props.product}/>);
+  } else {
+    return (<ProduceShowcaseWeb product={props.product}/> );
+  }
 }

@@ -1,9 +1,8 @@
-import React, {ForwardedRef, HTMLProps, KeyboardEventHandler, RefObject} from "react";
+import React, {HTMLProps, KeyboardEventHandler} from "react";
 import {SYSTEM_PROMPT} from "@/prompts";
 import {BotMessageSquare, Send} from "lucide-react";
 import Markdown from "react-markdown";
 import { useChat } from 'ai/react';
-
 
 type Message = {
   content: string
@@ -26,7 +25,6 @@ function FunctionCall(props: { message: Message, showProject: (project: string) 
     if (messageIsFunctionCall(props.message)) {
       try {
         const content = JSON.parse(props.message.content);
-        console.info('Content', content);
         props.showProject(JSON.parse(content.tool_calls[0].function.arguments).project)
       } catch(e) {
       }
@@ -37,7 +35,6 @@ function FunctionCall(props: { message: Message, showProject: (project: string) 
     if (messageIsFunctionCall(props.message)) {
       try {
         const content = JSON.parse(props.message.content);
-        console.info('Content', content);
         //start timer
         setTimeout(() => {
           props.showProject(JSON.parse(content.tool_calls[0].function.arguments).project)
@@ -116,6 +113,7 @@ const Responses = React.forwardRef(function Responses(props: ResponsesProps, ref
 
 type PromptInput = {
   loading: boolean,
+  value: string,
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
   onChange: (e: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>)) => void
 }
@@ -129,20 +127,22 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
 
     return (
       <div
-        className={`mt-3 h-12 bg-black rounded-2xl bg-opacity-40 drop-shadow-2xl ${props.loading && "bg-transparent"} transition-colors duration-300`}>
+        className={`mt-3 h-12 bg-black rounded-full bg-opacity-40 drop-shadow-2xl ${props.loading && "bg-transparent"} transition-colors duration-300`}>
         <form className="flex flex-row h-full w-full items-center bg-transparent rounded-2xl"
               onSubmit={props.onSubmit}>
           <input
             ref={ref}
             disabled={props.loading}
-            className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0 disabled:placeholder:opacity-50 disabled:cursor-not-allowed disabled:placeholder:opacity-0 transition-colors duration-300"
+            className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0 disabled:cursor-not-allowed disabled:placeholder:opacity-0 transition-colors duration-300"
             autoFocus
             placeholder="ask meemo a question"
+            value={props.value}
             onKeyDown={handleIgnoredChars}
             onChange={props.onChange}
           />
-          <button type="submit"
-                  className="text-white hover:text-orange-300 transition-colors duration-300 rounded-full h-12 w-12 flex flex-col items-center justify-center pr-2">
+          <button
+            type="submit"
+            className={`hover:text-orange-300 ${props.value ? 'text-orange-300' : 'text-gray-400'} ${props.loading && 'text-opacity-30'} transition-colors duration-300 rounded-full pt-0.5 pr-0.5 h-10 w-10 flex flex-col items-center justify-center mr-1 ${props.value ? 'border-opacity-70' : 'border-opacity-0' } border-amber-500 border-2 `}>
             <Send size={20}/>
           </button>
         </form>
@@ -183,12 +183,14 @@ function Backdrop(props: BackdropProps) {
 };
 
 function ToggleButton(props: { onClick: () => void }) {
-  return <button
-    className="z-50 fixed bottom-7 right-7 p-4 h-20 w-20 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white "
-    onClick={props.onClick}
-  >
-    <BotMessageSquare className="text-orange-300" size={120}/>
-  </button>;
+  return (
+    <button
+      className="z-50 fixed bottom-7 right-7 p-4 h-20 w-20 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white "
+      onClick={props.onClick}
+    >
+      <BotMessageSquare className="text-orange-300" size={120}/>
+    </button>
+  );
 }
 
 export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => void, showProject: (project: string) => void }) {
@@ -241,6 +243,7 @@ export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => v
           <PromptInput
             ref={inputRef}
             loading={loading}
+            value={input}
             onSubmit={handleSendMessage}
             onChange={handleInputChange}
           />

@@ -8,12 +8,12 @@ export function SlideDescription(props: { id: string, slide: Slide }) {
 
   let classes;
   if (self?.sticky) {
-    classes = "opacity-1"
+    classes = "opacity-100"
   } else {
     classes = "opacity-0"
   }
   return (
-    <p className={`transition-opacity duration-500 pb-7 px-12 text-lg text-white ${classes}`}>
+    <p className={`transition-opacity duration-500 py-7 px-12 text-lg text-white ${classes}`}>
       {props.slide.description}
     </p>
   )
