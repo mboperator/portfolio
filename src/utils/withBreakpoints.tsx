@@ -1,7 +1,7 @@
 import useWindowDimensions from "@/utils/useWindowDimensions";
 
 export function withBreakpoints(components) {
-  return function BreakpointRenderer(props) {
+  return function BreakpointRenderer<Props>(props: Props) {
     const { width } = useWindowDimensions();
     let Component = components.default;
 

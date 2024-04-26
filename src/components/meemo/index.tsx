@@ -46,7 +46,6 @@ function FunctionCall(props: { message: Message, showProject: (project: string) 
 
   try {
     const content = JSON.parse(props.message.content);
-    console.info('Content', content);
     const project = JSON.parse(content.tool_calls[0].function.arguments).project
     return (
       <div
