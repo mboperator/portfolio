@@ -191,7 +191,7 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
 function Modal(props: { children: React.ReactNode, minimized: boolean }) {
   return (
     <div
-      className={`relative w-full h-9/10 lg:w-1/2 lg:h-1/2 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-0'} transition-all duration-300`}>
+      className={`relative w-full h-9/10 lg:w-1/2 lg:h-2/3 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-0'} transition-all duration-300`}>
       {props.children}
     </div>
   )
@@ -232,8 +232,8 @@ function ToggleButton(props: { onClick: () => void }) {
 
 const RECOMMENDATIONS = [
   "What's Marcus' work experience?",
+  'Write a song about his SaaS experience.',
   'Can you show me a project?',
-  'Write a song about his SaaS experience'
 ]
 
 function Recommendations(props: { active: boolean }) {
