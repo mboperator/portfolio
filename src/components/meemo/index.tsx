@@ -154,7 +154,7 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
 function Modal(props: { children: React.ReactNode, minimized: boolean }) {
   return (
     <div
-      className={`w-full h-5/6 lg:w-1/2 lg:h-1/2 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-7'} transition-all duration-300`}>
+      className={`w-full h-9/10 lg:w-1/2 lg:h-1/2 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-0'} transition-all duration-300`}>
       {props.children}
     </div>
   )
@@ -185,7 +185,7 @@ function Backdrop(props: BackdropProps) {
 function ToggleButton(props: { onClick: () => void }) {
   return (
     <button
-      className="z-50 fixed bottom-7 right-7 p-4 h-20 w-20 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white "
+      className="z-50 fixed bottom-3 md:bottom-7 right-3 md:right-7 p-4 h-16 md:h-20 w-16 md:w-20 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white "
       onClick={props.onClick}
     >
       <BotMessageSquare className="text-orange-300" size={120}/>
