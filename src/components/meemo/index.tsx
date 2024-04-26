@@ -128,18 +128,14 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
     }
   }, [setRecommendationsVisibility, props.value])
 
-  const hideRecommendations = React.useCallback(function showRecommendations() {
-    setRecommendationsVisibility(false);
-  }, [setRecommendationsVisibility])
-
   const handleSubmit = React.useCallback(function handleSubmit() {
-    console.info(formRef)
-    formRef.current.requestSubmit(buttonRef.current)
-    console.info('Submit')
+    if (formRef.current) {
+      formRef.current.requestSubmit(buttonRef.current)
+    }
   }, [props.onSubmit, formRef, buttonRef])
 
   const handleSelectRecommendation = React.useCallback(function handleSelectRecommendation(recommendation: string) {
-    props.onChange({target: {value: recommendation}});
+    props.onChange({target: {value: recommendation}} as unknown as React.ChangeEvent<HTMLInputElement>);
     setTimeout(() => {
       handleSubmit();
     }, 100)
@@ -236,7 +232,7 @@ const RECOMMENDATIONS = [
   'Can you show me a project?',
 ]
 
-function Recommendations(props: { active: boolean }) {
+function Recommendations(props: { active: boolean, onSelect: (recommendation: string) => void }) {
   return (
     <div
       className={`w-full ${props.active ? "h-10" : "h-0"} mt-3 transition-all duration-400 overflow-hidden`}>
