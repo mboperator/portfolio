@@ -51,7 +51,7 @@ function FunctionCall(props: { message: Message, showProject: (project: string) 
     return (
       <div
         className={`my-3 text-white text-sm font-mono flex ${props.message.role === "assistant" ? "justify-start" : "justify-end"}`}>
-        <button onMouseDown={showProject} className="cursor-pointer rounded-3xl p-3 border-2 border-orange-300 hover:bg-orange-300 transition-colors bg-opacity-70 text-xs">
+        <button onPointerUp={showProject} className="cursor-pointer rounded-3xl p-3 border-2 border-orange-300 hover:bg-orange-300 transition-colors bg-opacity-70 text-xs">
           {`Click here to show ${project}`}
         </button>
       </div>
@@ -118,6 +118,32 @@ type PromptInput = {
   onChange: (e: (React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>)) => void
 }
 const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, ref: React.ForwardedRef<HTMLInputElement>) {
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const [recommendationsShowing, setRecommendationsVisibility] = React.useState(false);
+
+  const showRecommendations = React.useCallback(function showRecommendations() {
+    if (!props.value) {
+      setRecommendationsVisibility(true);
+    }
+  }, [setRecommendationsVisibility, props.value])
+
+  const hideRecommendations = React.useCallback(function showRecommendations() {
+    setRecommendationsVisibility(false);
+  }, [setRecommendationsVisibility])
+
+  const handleSubmit = React.useCallback(function handleSubmit() {
+    console.info(formRef)
+    formRef.current.requestSubmit(buttonRef.current)
+    console.info('Submit')
+  }, [props.onSubmit, formRef, buttonRef])
+
+  const handleSelectRecommendation = React.useCallback(function handleSelectRecommendation(recommendation: string) {
+    props.onChange({target: {value: recommendation}});
+    setTimeout(() => {
+      handleSubmit();
+    }, 100)
+  }, [props.onChange, formRef, handleSubmit])
 
   const handleIgnoredChars = React.useCallback(function handleIgnoredChars(event: KeyboardEvent): any {
     if (event.key === '/') {
@@ -125,28 +151,39 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
     }
   } as unknown as KeyboardEventHandler<HTMLInputElement>, []) ;
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      showRecommendations();
+    }, 1200);
+  }, [showRecommendations])
+
     return (
-      <div
-        className={`mt-3 h-12 bg-black rounded-full bg-opacity-40 drop-shadow-2xl ${props.loading && "bg-transparent"} transition-colors duration-300`}>
-        <form className="flex flex-row h-full w-full items-center bg-transparent rounded-2xl"
-              onSubmit={props.onSubmit}>
-          <input
-            ref={ref}
-            disabled={props.loading}
-            className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0 disabled:cursor-not-allowed disabled:placeholder:opacity-0 transition-colors duration-300"
-            autoFocus
-            placeholder="ask meemo a question"
-            value={props.value}
-            onKeyDown={handleIgnoredChars}
-            onChange={props.onChange}
-          />
-          <button
-            type="submit"
-            className={`hover:text-orange-300 ${props.value ? 'text-orange-300' : 'text-gray-400'} ${props.loading && 'text-opacity-30'} transition-colors duration-300 rounded-full pt-0.5 pr-0.5 h-10 w-10 flex flex-col items-center justify-center mr-1 ${props.value ? 'border-opacity-70' : 'border-opacity-0' } border-amber-500 border-2 `}>
-            <Send size={20}/>
-          </button>
-        </form>
-      </div>
+      <>
+        <Recommendations active={recommendationsShowing} onSelect={handleSelectRecommendation}/>
+        <div
+          className={`mt-3 h-12 bg-black rounded-full bg-opacity-40 drop-shadow-2xl ${props.loading && "bg-transparent"} transition-colors duration-300`}>
+          <form className="flex flex-row h-full w-full items-center bg-transparent rounded-2xl"
+                onSubmit={props.onSubmit}
+                ref={formRef}>
+            <input
+              ref={ref}
+              disabled={props.loading}
+              className="flex-1 text-gray-50 h-full w-full bg-transparent rounded-tl-2xl rounded-bl-2xl px-4 py-1 outline-0 disabled:cursor-not-allowed disabled:placeholder:opacity-0 transition-colors duration-300"
+              autoFocus
+              placeholder="ask meemo a question"
+              value={props.value}
+              onKeyDown={handleIgnoredChars}
+              onChange={props.onChange}
+            />
+            <button
+              ref={buttonRef}
+              type="submit"
+              className={`hover:text-orange-300 ${props.value ? 'text-orange-300' : 'text-gray-400'} ${props.loading && 'text-opacity-30'} transition-colors duration-300 rounded-full pt-0.5 pr-0.5 h-10 w-10 flex flex-col items-center justify-center mr-1 ${props.value ? 'border-opacity-70' : 'border-opacity-0' } border-amber-500 border-2 `}>
+              <Send size={20}/>
+            </button>
+          </form>
+        </div>
+      </>
     );
   }
 )
@@ -154,7 +191,7 @@ const PromptInput = React.forwardRef(function PromptInput(props: PromptInput, re
 function Modal(props: { children: React.ReactNode, minimized: boolean }) {
   return (
     <div
-      className={`w-full h-9/10 lg:w-1/2 lg:h-1/2 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-0'} transition-all duration-300`}>
+      className={`relative w-full h-9/10 lg:w-1/2 lg:h-1/2 flex flex-col px-3 pt-3 py-3 lg:max-w-5xl rounded-3xl bg-black bg-opacity-40 backdrop-blur-md ${props.minimized ? '-translate-y-7' : 'translate-y-0'} transition-all duration-300`}>
       {props.children}
     </div>
   )
@@ -193,6 +230,30 @@ function ToggleButton(props: { onClick: () => void }) {
   );
 }
 
+const RECOMMENDATIONS = [
+  "What's Marcus' work experience?",
+  'Can you show me a project?',
+  'Write a song about his SaaS experience'
+]
+
+function Recommendations(props: { active: boolean }) {
+  return (
+    <div
+      className={`w-full ${props.active ? "h-10" : "h-0"} mt-3 transition-all duration-400 overflow-hidden`}>
+      <div className="flex flex-row justify-evenly overflow-x-auto">
+        {RECOMMENDATIONS.map(recommendation => (
+          <button
+            key={recommendation}
+            onPointerUp={() => props.onSelect(recommendation)}
+            className={`mr-1 text-nowrap rounded-2xl border-amber-500 border-2 px-2 py-1 hover:bg-amber-500 transition-all duration-400 ${props.active ? 'opacity-100' : 'opacity-0'}`}>
+            <span className="text-white text-sm">{recommendation}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => void, showProject: (project: string) => void }) {
   const [loading, setLoading] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -209,6 +270,7 @@ export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => v
     console.info('Scrolling Responses');
     responsesRef.current?.scrollTo({left: 0, top: responsesRef.current.scrollHeight, behavior: 'smooth'});
   }, [responsesRef]);
+
 
   React.useEffect(() => {
     setTimeout(() => {
