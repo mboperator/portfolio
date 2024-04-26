@@ -28,12 +28,13 @@ function getNodeStyle(self: StickyChildPositionState | undefined) {
   }
 }
 
-export function StickyChild(props: {
+type StickyChildProps = {
   id: string,
   children: any,
   className?: string,
   debug?: boolean
-}) {
+}
+export function StickyChild(props: StickyChildProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const self = useStickyChildReporting(props.id, containerRef);
   const stickyNodeStyle = getStickyStyle(self);

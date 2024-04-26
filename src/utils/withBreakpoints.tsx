@@ -1,7 +1,7 @@
-import useWindowDimensions from "@/utils/useWindowDimensions";
+import useWindowDimensions from "./useWindowDimensions";
 
-export function withBreakpoints(components) {
-  return function BreakpointRenderer<Props>(props: Props) {
+export function withBreakpoints<Props>(components: { [key: string]: React.ComponentType<Props>}) {
+  return function BreakpointRenderer(props: Props) {
     const { width } = useWindowDimensions();
     let Component = components.default;
 

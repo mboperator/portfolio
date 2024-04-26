@@ -4,10 +4,9 @@ import {SplitLayout} from "@/components/splitLayout";
 import {SlideContent, SlideDescription} from "@/components/slideContent";
 import React from "react";
 import {SquareArrowOutUpRight} from "lucide-react";
-import useWindowDimensions from "@/utils/useWindowDimensions";
 import {withBreakpoints} from "@/utils/withBreakpoints";
 
-export function ProduceShowcaseMobile(props: { product: Product }) {
+export function ProductShowcaseMobile(props: { product: Product }) {
   if (props.product === undefined) {
     return null;
   }
@@ -56,7 +55,7 @@ export function ProduceShowcaseMobile(props: { product: Product }) {
   )
 }
 
-export function ProduceShowcaseWeb(props: { product: Product }) {
+export function ProductShowcaseWeb(props: { product: Product }) {
   if (props.product === undefined) {
     return null;
   }
@@ -103,7 +102,7 @@ export function ProduceShowcaseWeb(props: { product: Product }) {
   );
 }
 
-export const ProductShowcase = withBreakpoints({
-  md: ProduceShowcaseMobile,
-  default: ProduceShowcaseWeb,
+export const ProductShowcase = withBreakpoints<{ product: Product }>({
+  md: ProductShowcaseMobile,
+  default: ProductShowcaseWeb,
 })
