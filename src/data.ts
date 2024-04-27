@@ -95,8 +95,8 @@ export function getProducts(): Product[] {
       coverImageSize: 'contain',
       slides: [
         { image: "/bid-mgmt/before-bid-package.webp", imageSize: 'contain', description: 'This product was originally a free offering when clients purchased Procore\'s construction financials product line. My team was responsible for modernizing the UI prior to selling the product as a standalone offering.'},
-        { component: BidMgmt, description: 'I was responsible for frontend architecture and implementation. I lead one frontend engineer and one intern. Bid Management is implemented using Ruby on Rails, React, React Router, and redux.'},
-        { component: BidMgmt2, description: 'We redesigned the entire product as a single page application in under a year and it brought in $7M in ARR within 7 months. '},
+        { component: BidMgmt, description: 'I was responsible for frontend architecture and implementation. I lead one frontend engineer and one intern.'},
+        { component: BidMgmt2, description: 'We redesigned the entire product as a single page application in under a year and it brought in $7M in ARR within 7 months. Bid Management is implemented using Ruby on Rails, React, React Router, and redux.'},
       ]
     },
   ]
