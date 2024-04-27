@@ -1,5 +1,5 @@
 import React from "react";
-import {ProductShowcase} from "@/components/portfolio/productShowcase";
+import {ProductShowcase} from "@/components/productShowcase/productShowcase";
 import {getProducts} from "@/data";
 
 export function IlaLantern() {

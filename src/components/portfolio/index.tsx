@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import {getProducts} from "@/data";
-import {ProductShowcase} from "@/components/portfolio/productShowcase";
+import {ProductShowcase} from "@/components/productShowcase/productShowcase";
 
 export function Portfolio() {
   const products = getProducts();

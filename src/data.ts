@@ -1,10 +1,10 @@
 import {Product} from "@/types";
-import {IlaSpecs} from "@/components/portfolio/ilaSpecs";
-import {IlaImplementation} from "@/components/portfolio/ilaImplementation";
-import {RedeemersApp} from "@/components/portfolio/redeemersApp";
-import {OdysseyApp} from "@/components/portfolio/odysseyApp";
-import {BidMgmt} from "@/components/portfolio/bidMgmt";
-import {BidMgmt2} from "@/components/portfolio/bidMgmt2";
+import {IlaSpecs} from "@/components/portfolio/IlaLantern/ilaSpecs";
+import {IlaImplementation} from "@/components/portfolio/IlaLantern/ilaImplementation";
+import {RedeemersApp} from "@/components/portfolio/RedeemersChurch/redeemersApp";
+import {OdysseyApp} from "@/components/portfolio/OdysseyJournal/odysseyApp";
+import {BidMgmt} from "@/components/portfolio/BidManagement/bidMgmt";
+import {BidMgmt2} from "@/components/portfolio/BidManagement/bidMgmt2";
 
 export function getProducts(): Product[] {
   return [

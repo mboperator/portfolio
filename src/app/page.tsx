@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import {BidManagement} from "@/components/portfolio/BidManagement";
-import {IlaLantern} from "@/components/portfolio/IlaLantern";
+import {BidManagement} from "@/components/portfolio/BidManagement/BidManagement";
+import {IlaLantern} from "@/components/portfolio/IlaLantern/IlaLantern";
 import {MeemoChat} from "@/components/meemo";
-import {OdysseyJournal} from "@/components/portfolio/OdysseyJournal";
-import {RedeemersChurch} from "@/components/portfolio/RedeemersChurch";
+import {OdysseyJournal} from "@/components/portfolio/OdysseyJournal/OdysseyJournal";
+import {RedeemersChurch} from "@/components/portfolio/RedeemersChurch/RedeemersChurch";
 import {useVisibilityKeyboardShortcut} from "@/utils/useVisibilityKeyboardShortcut";
 
 function Backdrop() {

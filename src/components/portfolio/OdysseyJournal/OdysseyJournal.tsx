@@ -1,10 +1,10 @@
 import React from "react";
-import {ProductShowcase} from "@/components/portfolio/productShowcase";
+import {ProductShowcase} from "@/components/productShowcase/productShowcase";
 import {getProducts} from "@/data";
 
-export function RedeemersChurch() {
+export function OdysseyJournal() {
   const [active, setActive] = React.useState(false);
-  const product = getProducts().find(p => p.slug ==='redeemers-church-ventura')
+  const product = getProducts().find(p => p.slug ==='odyssey-journal')
   React.useEffect(() => {
     if (!active) {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
