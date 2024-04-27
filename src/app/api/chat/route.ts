@@ -24,7 +24,7 @@ export async function POST(req: Request) {
           parameters: {
             type: 'object',
             properties: {
-              project: { enum: ['Ila Lantern', 'Odyssey Journal', 'Bid Management', "Redeemer's App"] }
+              project: { enum: ['Ila Lantern', 'Odyssey Journal', 'Bid Management', "Redeemer's Church Ventura"] }
             },
             required: ["project"]
           },

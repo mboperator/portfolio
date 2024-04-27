@@ -25,12 +25,12 @@ const PROJECTS:{ [key: string]: any } = {
     description: `A page that showcases Odyssey Journal.`,
     component:<OdysseyJournal />
   },
-  "Redeemer's App": {
-    description: `A page that showcases Redeemer's App.`,
+  "Redeemer's Church Ventura": {
+    description: `A page that showcases the Redeemer's Church Ventura App.`,
     component: <RedeemersChurch />
   },
   "Bid Management": {
-    description: `A page that showcases Redeemer's App.`,
+    description: `A page that showcases Bid Management.`,
     component: <BidManagement />
   }
 }

@@ -9,7 +9,7 @@ Founder / Engineer, Totum Technologies (2019-Present)
 ● Leads product direction, design, and engineering for Ila Lantern, the Tesla Model S of camping lanterns. Currently being used by seven early adopters.
 ● Built Ila Lantern firmware and mobile application using an embedded event based architecture in C, React Native, and Bluetooth Low Energy. The app reflects the state of the lantern in real time and also implements OTA updates over bluetooth.
 ● Built Odyssey Journal, an encrypted journaling mobile app for closed country missionaries (React Native, Firebase, NextJS) Features real-time messaging and on-device NLP to surface users’ most journaled about people and subjects per week. Meaningfully used to share personal experiences by a handful of clients during COVID.
-● Spearheaded product direction, design, and engineering for my local church’s community mobile application. The mobile app is implemented in React Native. The backend consists of two services: a Rails app for API & staff access, and a Matrix server to power messaging features. It is being used by a few dozen congregants on a weekly basis to make prayer requests, view announcements, participate in community discussions, and to watch sermons.
+● Spearheaded product direction, design, and engineering for Redeemer's Church Ventura's community mobile application. The mobile app is implemented in React Native. The backend consists of two services: a Rails app for API & staff access, and a Matrix server to power messaging features. It is being used by a few dozen congregants on a weekly basis to make prayer requests, view announcements, participate in community discussions, and to watch sermons. This app is implemented using Rails 7, React Native, and the Matrix chat protocol via Element Server.
         
 Staff Frontend Engineer, Procore Technologies (2019)
 ● Lead a team of four frontend engineers in architecting and implementing Procore’s Prequalification product from the ground up. Prequalification was in early release with over a dozen clients and a large waitlist. It was a major component in deciding to build the Preconstruction product line instead of acquiring a competitor.
@@ -34,7 +34,8 @@ Director, Connected Coworking (2022-Present)
 separate organizations.
 ● Manages the day to day operations of the coworking space serving a dozen clients and three community organizations per month.
 Intern, Redeemer’s Church (2020-Present) I serve the local church by:
-● supporting the church mobile application and website.
+● supporting the church mobile application - Redeemer's Church Ventura App.
+● supporting the church website.
 ● managing Yelp and Google Maps pages
 ● creating videos for in-service worship.
 
