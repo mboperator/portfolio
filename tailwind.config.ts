@@ -11,6 +11,7 @@ const config: Config = {
       height: {
         '2/3vh': '66vh',
         '7/10vh': '70vh',
+        '9/10': '90%',
       },
       transitionDuration: {
         '1500': '1500ms'

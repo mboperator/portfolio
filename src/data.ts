@@ -1,10 +1,10 @@
 import {Product} from "@/types";
-import {IlaSpecs} from "@/components/portfolio/ilaSpecs";
-import {IlaImplementation} from "@/components/portfolio/ilaImplementation";
-import {RedeemersApp} from "@/components/portfolio/redeemersApp";
-import {OdysseyApp} from "@/components/portfolio/odysseyApp";
-import {BidMgmt} from "@/components/portfolio/bidMgmt";
-import {BidMgmt2} from "@/components/portfolio/bidMgmt2";
+import {IlaSpecs} from "@/components/portfolio/IlaLantern/ilaSpecs";
+import {IlaImplementation} from "@/components/portfolio/IlaLantern/ilaImplementation";
+import {RedeemersApp} from "@/components/portfolio/RedeemersChurch/redeemersApp";
+import {OdysseyApp} from "@/components/portfolio/OdysseyJournal/odysseyApp";
+import {BidMgmt} from "@/components/portfolio/BidManagement/bidMgmt";
+import {BidMgmt2} from "@/components/portfolio/BidManagement/bidMgmt2";
 
 export function getProducts(): Product[] {
   return [
@@ -95,8 +95,8 @@ export function getProducts(): Product[] {
       coverImageSize: 'contain',
       slides: [
         { image: "/bid-mgmt/before-bid-package.webp", imageSize: 'contain', description: 'This product was originally a free offering when clients purchased Procore\'s construction financials product line. My team was responsible for modernizing the UI prior to selling the product as a standalone offering.'},
-        { component: BidMgmt, description: 'I was responsible for frontend architecture and implementation. I lead one frontend engineer and one intern. Bid Management is implemented using Ruby on Rails, React, React Router, and redux.'},
-        { component: BidMgmt2, description: 'We redesigned the entire product as a single page application in under a year and it brought in $7M in ARR within 7 months. '},
+        { component: BidMgmt, description: 'I was responsible for frontend architecture and implementation. I lead one frontend engineer and one intern.'},
+        { component: BidMgmt2, description: 'We redesigned the entire product as a single page application in under a year and it brought in $7M in ARR within 7 months. Bid Management is implemented using Ruby on Rails, React, React Router, and redux.'},
       ]
     },
   ]

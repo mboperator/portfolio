@@ -12,7 +12,7 @@ export function StickyParent(props: StickyContainerProps) {
     window.addEventListener('scroll', updateChildPositions);
     window.addEventListener('resize', updateChildPositions);
     updateChildPositions();
-    () => {
+    return () => {
       window.removeEventListener('scroll', updateChildPositions)
       window.removeEventListener('resize', updateChildPositions);
     }

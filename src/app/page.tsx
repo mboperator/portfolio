@@ -1,25 +1,78 @@
-import React from "react";
-import {Portfolio} from "@/components/portfolio";
+"use client";
 
-function HeroSection() {
+import React from "react";
+import {BidManagement} from "@/components/portfolio/BidManagement/BidManagement";
+import {IlaLantern} from "@/components/portfolio/IlaLantern/IlaLantern";
+import {MeemoChat} from "@/components/meemo";
+import {OdysseyJournal} from "@/components/portfolio/OdysseyJournal/OdysseyJournal";
+import {RedeemersChurch} from "@/components/portfolio/RedeemersChurch/RedeemersChurch";
+import {useVisibilityKeyboardShortcut} from "@/utils/useVisibilityKeyboardShortcut";
+import {Prequalification} from "@/components/portfolio/Prequalification";
+
+function Backdrop() {
   return (
     <section
-      className="h-screen w-full flex flex-col justify-between items-start p-12 bg-sunset bg-cover bg-center">
-      <div>
-        <h1 className="text-white text-7xl mb-7">marcus bernales</h1>
-        <h2 className="text-white text-3xl">disciple of Jesus | husband | engineer</h2>
-      </div>
-      <div>
-        <h1 className="text-7xl mb-3 text-white">portfolio</h1>
-      </div>
+      className="min-h-screen w-full flex flex-row bg-cover bg-center bg-sunset">
     </section>
-  );
+  )
+}
+
+const PROJECTS:{ [key: string]: any } = {
+  'Ila Lantern': {
+    description: `A page that contains graphs representing Ila's performance numbers.`,
+    component: <IlaLantern />
+  },
+  'Odyssey Journal': {
+    description: `A page that showcases Odyssey Journal.`,
+    component:<OdysseyJournal />
+  },
+  "Redeemer's Church Ventura": {
+    description: `A page that showcases the Redeemer's Church Ventura App.`,
+    component: <RedeemersChurch />
+  },
+  "Bid Management": {
+    description: `A page that showcases Bid Management.`,
+    component: <BidManagement />
+  },
+  "Prequalification": {
+    description: `A page that showcases Prequalification.`,
+    component: <Prequalification />
+  }
+}
+
+function HeroSection() {
+  const [activeComponent, setActiveComponent] = React.useState(<Backdrop />);
+  const { isMinimized, setVisibility } = useVisibilityKeyboardShortcut();
+
+  const showProject = React.useCallback(function showProject(projectToShow: string): void {
+    const project = PROJECTS[projectToShow];
+    console.info('showProject', projectToShow, project);
+    if (project) {
+      setActiveComponent(project.component);
+      setTimeout(() => {
+        setVisibility(true);
+      }, 10);
+    }
+  }, [PROJECTS, setActiveComponent, setVisibility])
+
+
+  return (
+    <section
+      className="min-h-screen w-full relative flex flex-row">
+      <MeemoChat
+        minimized={isMinimized}
+        showProject={showProject}
+        toggleVisibility={() => setVisibility(visibility => !visibility)}
+      />
+      {activeComponent}
+    </section>
+  )
 }
 
 function Contact() {
   return (
     <section className="h-screen flex flex-col p-12 justify-center items-center">
-      <a href="mailto:marcusbernales@gmail.com">
+      <a href="mailto:hello@marcusbernal.es">
         <h1 className="text-white text-7xl underline">email me</h1>
       </a>
     </section>
@@ -30,7 +83,6 @@ export default function Home() {
   return (
     <main className="flex flex-col w-screen bg-black">
       <HeroSection />
-      <Portfolio />
       <Contact />
     </main>
   );

@@ -2,10 +2,11 @@ import React from "react";
 
 export type StickyChildPositionState = {
   sticky?: boolean
-  stickyOffset?: number;
-  height: number;
-  width: number;
-  absolutePosition: number;
+  stickyOffset?: number
+  height: number
+  width: number
+  left: number
+  absolutePosition: number
 }
 export type StickyContextState = {
   children: Map<string, StickyChildPositionState>
