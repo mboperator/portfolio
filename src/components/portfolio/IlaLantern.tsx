@@ -13,6 +13,7 @@ export function IlaLantern() {
       }, 500);
     }
   }, [setActive, active])
+  if (!product) { return null }
   return (
     <div className={`${active ? 'opacity-100' : 'opacity-0'} transition-opacity duration-700`}>
       <ProductShowcase product={product} />

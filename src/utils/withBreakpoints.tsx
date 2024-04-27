@@ -1,7 +1,8 @@
 import useWindowDimensions from "./useWindowDimensions";
+import IntrinsicAttributes = React.JSX.IntrinsicAttributes;
 
 export function withBreakpoints<Props>(components: { [key: string]: React.ComponentType<Props>}) {
-  return function BreakpointRenderer(props: Props) {
+  return function BreakpointRenderer(props: IntrinsicAttributes & Props) {
     const { width } = useWindowDimensions();
     let Component = components.default;
 
