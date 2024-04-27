@@ -7,6 +7,7 @@ import {MeemoChat} from "@/components/meemo";
 import {OdysseyJournal} from "@/components/portfolio/OdysseyJournal/OdysseyJournal";
 import {RedeemersChurch} from "@/components/portfolio/RedeemersChurch/RedeemersChurch";
 import {useVisibilityKeyboardShortcut} from "@/utils/useVisibilityKeyboardShortcut";
+import {Prequalification} from "@/components/portfolio/Prequalification";
 
 function Backdrop() {
   return (
@@ -32,6 +33,10 @@ const PROJECTS:{ [key: string]: any } = {
   "Bid Management": {
     description: `A page that showcases Bid Management.`,
     component: <BidManagement />
+  },
+  "Prequalification": {
+    description: `A page that showcases Prequalification.`,
+    component: <Prequalification />
   }
 }
 
