@@ -7,7 +7,7 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_AI_KEY,
 });
 
-function formatForClaude(message) {
+function formatForClaude(message: { role:string, content: string }) {
   return {
     role: 'user',
     content: message.content,
