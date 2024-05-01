@@ -1,38 +1,25 @@
-import OpenAI from 'openai';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import Anthropic from '@anthropic-ai/sdk';
+import { StreamingTextResponse, AnthropicStream } from 'ai';
+import {MEEMO_AGENT_PROMPT} from "@/prompts";
 
 export const dynamic = 'force-dynamic';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_AI_KEY,
 });
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-0125',
+  const response = await anthropic.messages.create({
+    model: 'claude-3-sonnet-20240229',
     stream: true,
+    max_tokens: 1024,
     messages: messages,
     temperature: 0.4,
-    tools: [
-      {
-        type: 'function',
-        function: {
-          description: 'Show a project that Marcus has worked on.',
-          name: 'show_project',
-          parameters: {
-            type: 'object',
-            properties: {
-              project: { enum: ['Ila Lantern', 'Odyssey Journal', 'Bid Management', "Redeemer's Church Ventura", "Prequalification"] }
-            },
-            required: ["project"]
-          },
-        }
-      }
-    ],
+    system: MEEMO_AGENT_PROMPT,
   });
 
-  const stream = OpenAIStream(response);
+  const stream = AnthropicStream(response);
   return new StreamingTextResponse(stream);
 }

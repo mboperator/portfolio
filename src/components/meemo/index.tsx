@@ -1,8 +1,9 @@
 import React, {HTMLProps, KeyboardEventHandler} from "react";
-import {SYSTEM_PROMPT} from "@/prompts";
 import {BotMessageSquare, Send} from "lucide-react";
 import Markdown from "react-markdown";
 import { useChat } from 'ai/react';
+import {create} from "zustand";
+import {debounce} from "next/dist/server/utils";
 
 type Message = {
   content: string
@@ -12,79 +13,81 @@ type Message = {
 
 const COMPONENTS = {
   ul: (props: HTMLProps<HTMLUListElement>) => <ul className="list-none" {...props} />,
-  li: (props: HTMLProps<HTMLLIElement>) => <li className="my-2" {...props} />,
-  p: (props: HTMLProps<HTMLParagraphElement>) => <p className="mb-2" {...props} />
+  li: (props: HTMLProps<HTMLLIElement>) => <li className="list-none leading-loose" {...props} />,
+  p: (props: HTMLProps<HTMLParagraphElement>) => <p className="" {...props} />,
+  h1: (props: HTMLProps<HTMLHeadingElement>) => <h1 className="leading-loose text-xl font-bold" {...props} />,
+  h2: (props: HTMLProps<HTMLHeadingElement>) => <h2 className="leading-loose font-bold" {...props} />
 }
 
-function messageIsFunctionCall(message: Message) {
-  return message.content.includes('{')
+async function retrieveRelevantProjects(message: Message) {
+  try {
+    const response = await fetch('/api/tools',{
+      method: 'POST',
+      body: JSON.stringify({messages: [ message ]})
+    })
+    const data = await response.json()
+    return data.content[0].input.projects;
+  } catch(e: any) {
+    console.error('Error retrieving relevant tools', e.message)
+    return [];
+  }
 }
 
-function FunctionCall(props: { message: Message, showProject: (project: string) => void }) {
-  const showProject = React.useCallback(() => {
-    if (messageIsFunctionCall(props.message)) {
-      try {
-        const content = JSON.parse(props.message.content);
-        props.showProject(JSON.parse(content.tool_calls[0].function.arguments).project)
-      } catch(e) {
-      }
-    }
-  }, [props.message.content, props.showProject])
+function Response(props: { scrollResponses: () => void, showProject: any, message: Message }) {
+  const queriedToolsMutex = React.useRef(false);
+  const [relevantProjects, setRelevantProjects] = React.useState([]);
+  const isResponding = useMeemoStore(state => state.isResponding);
+
+  const showProjects = React.useCallback(() => {
+    props.showProject(relevantProjects);
+  }, [props.showProject, relevantProjects, props.scrollResponses])
 
   React.useEffect(() => {
-    if (messageIsFunctionCall(props.message)) {
-      try {
-        const content = JSON.parse(props.message.content);
-        //start timer
-        setTimeout(() => {
-          props.showProject(JSON.parse(content.tool_calls[0].function.arguments).project)
-        }, 1200)
-      } catch(e) {
-      }
+    if (props.message.role === 'assistant' && !isResponding && !queriedToolsMutex.current) {
+      retrieveRelevantProjects(props.message).then(setRelevantProjects).then(props.scrollResponses);
+      queriedToolsMutex.current = true;
     }
-  }, [props.message.content, props.showProject])
+  }, [props.message, isResponding, queriedToolsMutex])
 
-  try {
-    const content = JSON.parse(props.message.content);
-    const project = JSON.parse(content.tool_calls[0].function.arguments).project
-    return (
-      <div
-        className={`my-3 text-white text-sm font-mono flex ${props.message.role === "assistant" ? "justify-start" : "justify-end"}`}>
-        <button onPointerUp={showProject} className="cursor-pointer rounded-3xl p-3 border-2 border-orange-300 hover:bg-orange-300 transition-colors bg-opacity-70 text-xs">
-          {`Click here to show ${project}`}
-        </button>
-      </div>
-    )
-  } catch(e) {
-    return (
-      <div>Loading...</div>
-    )
-  }
-}
-
-function Response(props: { showProject: any, message: Message }) {
-  if (messageIsFunctionCall(props.message)) {
-    return (
-      <FunctionCall message={props.message} showProject={props.showProject} />
-    )
-  }
   return (
     <div
-      className={`my-3 text-white text-lg flex ${props.message.role === "assistant" ? "justify-start" : "justify-end"}`}>
-      <div>
-        <Markdown components={COMPONENTS}>{props.message.content}</Markdown>
+      className={`my-3 text-white text-lg flex flex-col ${props.message.role === "assistant" ? "justify-start" : "justify-end text-right"}`}>
+      <Markdown components={COMPONENTS}>{props.message.content}</Markdown>
+      <div className={`mt-3 ${relevantProjects.length > 0 ? 'h-12' : 'h-0' } overflow-hidden transition-all duration-300`}>
+        <button onPointerUp={showProjects} className="cursor-pointer rounded-3xl p-3 border-2 border-orange-300 hover:bg-orange-300 transition-colors bg-opacity-70 text-xs">
+          {`Click here to show ${relevantProjects.length} projects.`}
+        </button>
       </div>
     </div>
   );
 }
 
+const scrollNodeToEnd = debounce((node: HTMLElement) => {
+  node.scrollTo({left: 0, top: node.scrollHeight, behavior: 'smooth'});
+}, 300);
+
 type ResponsesProps = {
   messages: Message[]
-  showProject: (project: string) => void
+  showProject: (projects: string[]) => void
 }
-const Responses = React.forwardRef(function Responses(props: ResponsesProps, ref: any) {
+const Responses = function Responses(props: ResponsesProps) {
+  const responsesRef = React.useRef<HTMLInputElement>(null);
+
+  const scrollResponses = React.useCallback(function scrollResponses() {
+    console.info('Scrolling Responses');
+    if (responsesRef.current) {
+      scrollNodeToEnd(responsesRef.current);
+    }
+  }, [responsesRef]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      scrollResponses();
+    }, 50);
+  }, [responsesRef, props.messages, scrollResponses])
+
   return (
-    <div ref={ref} className="flex-1 bg-black rounded-2xl bg-opacity-40  p-5 flex flex-col overflow-scroll">
+    <div ref={responsesRef} className="flex-1 bg-black rounded-2xl bg-opacity-40  p-5 flex flex-col overflow-scroll">
       <div
         className={`my-1 text-white text-lg flex justify-start`}>
         <div>
@@ -104,11 +107,11 @@ const Responses = React.forwardRef(function Responses(props: ResponsesProps, ref
         </div>
       </div>
       {props.messages.map((message, i) => (
-        <Response key={i} message={message} showProject={props.showProject}/>
+        <Response key={i} message={message} showProject={props.showProject} scrollResponses={scrollResponses}/>
       ))}
     </div>
   )
-});
+}
 
 type PromptInput = {
   loading: boolean,
@@ -249,37 +252,35 @@ function Recommendations(props: { active: boolean, onSelect: (recommendation: st
   );
 }
 
-export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => void, showProject: (project: string) => void }) {
-  const [loading, setLoading] = React.useState(false);
+type MeemoState = {
+  isResponding: boolean;
+  isMinimized: boolean;
+  setIsResponding: (isResponding: boolean) => void;
+}
+const useMeemoStore = create<MeemoState>((set) => ({
+  isResponding: false,
+  isMinimized: true,
+  toggleVisibility: () => set(state => ({isMinimized: !state.isMinimized})),
+  setIsResponding: (isResponding: boolean) => set({isResponding})
+}));
+
+export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => void, showProject: (projects: string[]) => void }) {
+  const { isResponding, setIsResponding } = useMeemoStore();
+
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const responsesRef = React.useRef<HTMLInputElement>(null);
   const {messages, input, handleInputChange, handleSubmit} = useChat({
-    initialMessages: [
-      { id: '0', content: SYSTEM_PROMPT, role: 'system' }
-    ],
-    onResponse: () => setLoading(true),
-    onFinish: () => setLoading(false),
+    initialMessages: [],
+    onResponse: () => setIsResponding(true),
+    onFinish: () => setIsResponding(false),
   });
 
-  const scrollResponses = React.useCallback(function scrollResponses() {
-    console.info('Scrolling Responses');
-    responsesRef.current?.scrollTo({left: 0, top: responsesRef.current.scrollHeight, behavior: 'smooth'});
-  }, [responsesRef]);
-
-
   React.useEffect(() => {
-    setTimeout(() => {
-      scrollResponses();
-    }, 50);
-  }, [responsesRef, messages])
-
-  React.useEffect(() => {
-    if (props.minimized || loading) { return; }
+    if (props.minimized || isResponding) { return; }
 
     setTimeout(() => {
       inputRef.current?.focus();
     }, 50);
-  }, [inputRef, loading, props.minimized])
+  }, [inputRef, isResponding, props.minimized])
 
   const handleSendMessage = React.useCallback(function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     handleSubmit(e);
@@ -293,13 +294,12 @@ export function MeemoChat(props: { minimized: boolean, toggleVisibility: () => v
       <Backdrop minimized={props.minimized} onMinimize={props.toggleVisibility}>
         <Modal minimized={props.minimized}>
           <Responses
-            ref={responsesRef}
             messages={messages.filter(m => m.role !== 'system')}
             showProject={props.showProject}
           />
           <PromptInput
             ref={inputRef}
-            loading={loading}
+            loading={isResponding}
             value={input}
             onSubmit={handleSendMessage}
             onChange={handleInputChange}
