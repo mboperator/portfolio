@@ -56,6 +56,7 @@ function HeroSection() {
       setTimeout(() => {
         setProjectsVisible(true);
         setVisibility(true);
+        window.dispatchEvent(new Event('resize')); // Hack to cause sticky headers to recalculate hah
       }, 10);
     }
   }, [PROJECTS, setActiveComponent, setVisibility])

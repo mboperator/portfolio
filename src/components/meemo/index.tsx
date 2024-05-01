@@ -37,7 +37,7 @@ function Response(props: { scrollResponses: () => void, showProject: any, messag
   const queriedToolsMutex = React.useRef(false);
   const [relevantProjects, setRelevantProjects] = React.useState([]);
   const isResponding = useMeemoStore(state => state.isResponding);
-  
+
   const showProjects = React.useCallback(() => {
     props.showProject(relevantProjects);
   }, [props.showProject, relevantProjects, props.scrollResponses])
