@@ -1,5 +1,4 @@
 import React, {HTMLProps, KeyboardEventHandler} from "react";
-import {MEEMO_AGENT_PROMPT} from "@/prompts";
 import {BotMessageSquare, Send} from "lucide-react";
 import Markdown from "react-markdown";
 import { useChat } from 'ai/react';
@@ -28,7 +27,7 @@ async function retrieveRelevantProjects(message: Message) {
     })
     const data = await response.json()
     return data.content[0].input.projects;
-  } catch(e) {
+  } catch(e: any) {
     console.error('Error retrieving relevant tools', e.message)
     return [];
   }
@@ -38,7 +37,7 @@ function Response(props: { scrollResponses: () => void, showProject: any, messag
   const queriedToolsMutex = React.useRef(false);
   const [relevantProjects, setRelevantProjects] = React.useState([]);
   const isResponding = useMeemoStore(state => state.isResponding);
-
+  
   const showProjects = React.useCallback(() => {
     props.showProject(relevantProjects);
   }, [props.showProject, relevantProjects, props.scrollResponses])
@@ -70,7 +69,6 @@ const scrollNodeToEnd = debounce((node: HTMLElement) => {
 type ResponsesProps = {
   messages: Message[]
   showProject: (projects: string[]) => void
-  scrollResponses: () => void
 }
 const Responses = function Responses(props: ResponsesProps) {
   const responsesRef = React.useRef<HTMLInputElement>(null);

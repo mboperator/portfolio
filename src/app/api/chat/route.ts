@@ -1,6 +1,4 @@
-import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
-
 import { StreamingTextResponse, AnthropicStream } from 'ai';
 import {MEEMO_AGENT_PROMPT} from "@/prompts";
 
