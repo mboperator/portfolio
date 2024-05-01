@@ -20,36 +20,41 @@ function Backdrop() {
 const PROJECTS:{ [key: string]: any } = {
   'Ila Lantern': {
     description: `A page that contains graphs representing Ila's performance numbers.`,
-    component: <IlaLantern />
+    component: IlaLantern
   },
   'Odyssey Journal': {
     description: `A page that showcases Odyssey Journal.`,
-    component:<OdysseyJournal />
+    component:OdysseyJournal
   },
   "Redeemer's Church Ventura": {
     description: `A page that showcases the Redeemer's Church Ventura App.`,
-    component: <RedeemersChurch />
+    component: RedeemersChurch
   },
   "Bid Management": {
     description: `A page that showcases Bid Management.`,
-    component: <BidManagement />
+    component: BidManagement
   },
   "Prequalification": {
     description: `A page that showcases Prequalification.`,
-    component: <Prequalification />
+    component: Prequalification
   }
 }
 
 function HeroSection() {
-  const [activeComponent, setActiveComponent] = React.useState(<Backdrop />);
+  const [activeComponent, setActiveComponent] = React.useState([<Backdrop key="backdrop" />]);
   const { isMinimized, setVisibility } = useVisibilityKeyboardShortcut();
+  const [projectsVisible, setProjectsVisible] = React.useState(true);
 
-  const showProject = React.useCallback(function showProject(projectToShow: string): void {
-    const project = PROJECTS[projectToShow];
-    console.info('showProject', projectToShow, project);
-    if (project) {
-      setActiveComponent(project.component);
+  const showProject = React.useCallback(function showProject(projectsToShow: string[]): void {
+    const projects = projectsToShow.map(project => {
+      const Component = PROJECTS[project]?.component;
+      return <Component key={project} />;
+    });
+    if (projects.length) {
+      setProjectsVisible(false);
+      setActiveComponent(projects);
       setTimeout(() => {
+        setProjectsVisible(true);
         setVisibility(true);
       }, 10);
     }
@@ -64,7 +69,9 @@ function HeroSection() {
         showProject={showProject}
         toggleVisibility={() => setVisibility(visibility => !visibility)}
       />
-      {activeComponent}
+      <section className={`flex flex-col w-full ${projectsVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+        {activeComponent}
+      </section>
     </section>
   )
 }
