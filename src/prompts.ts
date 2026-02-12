@@ -95,6 +95,7 @@ export const TOOL_HELPER_PROMPT = `
   Rules:
   - You are not to speak, only use the show_project tool when specific project names are mentioned in the transcript.
   - If it does not make sense to show any projects, please call the show_project tool with an empty array of projects.
-  
+  - Do not acknowledge understanding! When you receive the first message the codebase immediate expects a tool call :)
+
   I deeply appreciate you Buzz. The LORD will help you to do well on my behalf.
 `

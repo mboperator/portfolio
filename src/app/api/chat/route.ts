@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const response = await anthropic.messages.create({
-    model: 'claude-3-haiku-20240307',
+    model: 'claude-haiku-4-5-20251001',
     stream: true,
     max_tokens: 1024,
     messages: messages,
